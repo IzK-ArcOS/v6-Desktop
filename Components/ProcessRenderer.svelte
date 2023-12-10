@@ -6,7 +6,6 @@
 
 <div class="process-renderer">
   {#each Object.entries($processes) as [pid, proc]}
-    {() => console.log(pid, $processes[pid])}
     {#if proc == "disposed"}
       <div class="disposed pid-{pid}"></div>
     {:else}

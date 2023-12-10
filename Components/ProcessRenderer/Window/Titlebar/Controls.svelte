@@ -19,13 +19,25 @@
 </script>
 
 <div class="controls">
-  <button class="min" disabled={!app.controls.minimize} on:click={minimize}>
+  <button
+    class="min material-icons-round"
+    disabled={!app.controls.minimize}
+    on:click={minimize}
+  >
     minimize
   </button>
-  <button class="max" disabled={!app.controls.maximize} on:click={maximize}>
+  <button
+    class="max material-icons-round"
+    disabled={!app.controls.maximize}
+    on:click={maximize}
+  >
     crop_square
   </button>
-  <button class="close" disabled={!app.controls.close} on:click={close}>
+  <button
+    class="close material-icons-round"
+    disabled={!app.controls.close}
+    on:click={close}
+  >
     close
   </button>
 </div>

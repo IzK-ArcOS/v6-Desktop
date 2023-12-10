@@ -12,6 +12,11 @@
     loadBuiltinApps();
 
     spawnProcess("desktopWallpaper");
+    spawnProcess("ArcTerm");
+    spawnProcess("ArcTerm");
+    spawnProcess("ArcTerm");
+    spawnProcess("ArcTerm");
+    spawnProcess("ArcTerm");
 
     await sleep(500);
 
