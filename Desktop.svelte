@@ -4,7 +4,7 @@
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import { spawnProcess } from "$ts/apps/process";
   import { sleep } from "$ts/util";
-  import "$css/desktop.css";
+  import "./css/main.css";
 
   let show = false;
 
