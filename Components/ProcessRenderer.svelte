@@ -1,7 +1,8 @@
 <script lang="ts">
   import { processes } from "$ts/stores/apps";
-  import { onMount } from "svelte";
   import Window from "./ProcessRenderer/Window.svelte";
+
+  processes.subscribe((v) => console.log(v));
 </script>
 
 <div class="process-renderer">
@@ -9,7 +10,7 @@
     {#if proc == "disposed"}
       <div class="disposed pid-{pid}"></div>
     {:else}
-      <Window app={proc} pid={parseInt(pid)} />
+      <Window {proc} pid={parseInt(pid)} />
     {/if}
   {/each}
 </div>

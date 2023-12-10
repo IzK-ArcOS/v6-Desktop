@@ -1,16 +1,17 @@
 <script lang="ts">
   import { killProcess } from "$ts/apps/process";
   import { App } from "$types/app";
+  import { ReadableStore } from "$types/writable";
 
   export let pid: number;
-  export let app: App;
+  export let app: ReadableStore<App>;
 
   function minimize() {
-    app.state.minimized = true;
+    $app.state.minimized = !$app.state.minimized;
   }
 
   function maximize() {
-    app.state.maximized = true;
+    $app.state.maximized = !$app.state.maximized;
   }
 
   function close() {
@@ -21,21 +22,21 @@
 <div class="controls">
   <button
     class="min material-icons-round"
-    disabled={!app.controls.minimize}
+    disabled={!$app.controls.minimize}
     on:click={minimize}
   >
     minimize
   </button>
   <button
     class="max material-icons-round"
-    disabled={!app.controls.maximize}
+    disabled={!$app.controls.maximize}
     on:click={maximize}
   >
     crop_square
   </button>
   <button
     class="close material-icons-round"
-    disabled={!app.controls.close}
+    disabled={!$app.controls.close}
     on:click={close}
   >
     close
