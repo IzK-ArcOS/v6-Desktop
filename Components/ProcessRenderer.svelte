@@ -1,18 +1,16 @@
 <script lang="ts">
   import { processes } from "$ts/stores/apps";
-  import { App } from "$types/app";
-
-  let procs: [string, App | "disposed"][] = [];
-
-  processes.subscribe((v) => (procs = Object.entries(v)));
+  import { onMount } from "svelte";
+  import Window from "./ProcessRenderer/Window.svelte";
 </script>
 
 <div class="process-renderer">
-  {#each procs as [pid, proc]}
+  {#each Object.entries($processes) as [pid, proc]}
+    {() => console.log(pid, $processes[pid])}
     {#if proc == "disposed"}
       <div class="disposed pid-{pid}"></div>
     {:else}
-      <div class="window">{pid}</div>
+      <Window app={proc} pid={parseInt(pid)} />
     {/if}
   {/each}
 </div>
