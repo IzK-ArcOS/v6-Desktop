@@ -9,13 +9,8 @@
   let show = false;
 
   onMount(async () => {
-    loadBuiltinApps();
+    await loadBuiltinApps();
 
-    spawnProcess("desktopWallpaper");
-    spawnProcess("ArcTerm");
-    spawnProcess("ArcTerm");
-    spawnProcess("ArcTerm");
-    spawnProcess("ArcTerm");
     spawnProcess("ArcTerm");
 
     await sleep(500);

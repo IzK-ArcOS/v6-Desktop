@@ -1,8 +1,6 @@
 <script lang="ts">
   import { processes } from "$ts/stores/apps";
   import Window from "./ProcessRenderer/Window.svelte";
-
-  processes.subscribe((v) => console.log(v));
 </script>
 
 <div class="process-renderer">

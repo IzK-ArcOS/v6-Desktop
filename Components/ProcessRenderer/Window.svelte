@@ -1,15 +1,16 @@
 <script lang="ts">
   import "$css/desktop/window.css";
   import { AppRuntime } from "$ts/apps";
+  import { generateCSS } from "$ts/apps/css";
+  import { closedPids, focusedPid, maxZIndex } from "$ts/stores/apps";
+  import { sleep } from "$ts/util";
+  import { Store } from "$ts/writable";
   import { App, Coordinate } from "$types/app";
+  import { ReadableStore } from "$types/writable";
   import { DragEventData, draggable } from "@neodrag/svelte";
   import { onMount } from "svelte";
   import Titlebar from "./Window/Titlebar.svelte";
-  import { sleep } from "$ts/util";
-  import { focusedPid, maxZIndex, processes } from "$ts/stores/apps";
-  import { generateCSS } from "$ts/apps/css";
-  import { ReadableStore } from "$types/writable";
-  import { Store } from "$ts/writable";
+  import Incorrect from "$state/Login/Components/Pages/ExistingUser/Incorrect.svelte";
 
   export let proc: App;
   export let pid: number;
@@ -22,6 +23,8 @@
   let pos: Coordinate = { x: 0, y: 0 };
 
   onMount(async () => {
+    focusedPid.set(pid);
+
     pos = { ...proc.pos };
     app = Store<App>(proc);
 
@@ -49,7 +52,7 @@
   }
 
   focusedPid.subscribe((v) => {
-    if (v != pid || $app.metadata.core) return;
+    if (!$app || v != pid || $app.metadata.core) return;
 
     $maxZIndex++;
 
@@ -72,16 +75,15 @@
     class:glass={$app.glass}
     class:visible
     class:focused={$focusedPid == pid}
+    class:closing={$closedPids.includes(pid)}
     {style}
     on:mousedown={handleMouse}
     on:neodrag:end={dragEnd}
     use:draggable={{
-      disabled:
-        /* $app.state.maximized ||  */ $app.metadata.core ||
-        $app.state.minimized,
+      /*       disabled:
+        $app.state.maximized || $app.metadata.core || $app.state.minimized, */
       handle: ".titlebar",
       bounds: { top: 0, left: 0, right: 0, bottom: -1000 },
-      defaultPosition: pos,
       position: { x: $app.pos.x, y: $app.pos.y },
     }}
   >
