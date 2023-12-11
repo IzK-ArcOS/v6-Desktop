@@ -6,11 +6,15 @@
   import { sleep } from "$ts/util";
   import "./css/main.css";
 
-  let show = false;
+  let show = true;
 
   onMount(async () => {
     await loadBuiltinApps();
 
+    spawnProcess("ArcTerm");
+    spawnProcess("ArcTerm");
+    spawnProcess("ArcTerm");
+    spawnProcess("ArcTerm");
     spawnProcess("ArcTerm");
 
     await sleep(500);

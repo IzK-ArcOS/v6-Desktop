@@ -2,7 +2,7 @@
   import "$css/desktop/window.css";
   import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
-  import { closedPids, focusedPid, maxZIndex } from "$ts/stores/apps";
+  import { focusedPid, maxZIndex } from "$ts/stores/apps";
   import { sleep } from "$ts/util";
   import { Store } from "$ts/writable";
   import { App, Coordinate } from "$types/app";
@@ -10,10 +10,10 @@
   import { DragEventData, draggable } from "@neodrag/svelte";
   import { onMount } from "svelte";
   import Titlebar from "./Window/Titlebar.svelte";
-  import Incorrect from "$state/Login/Components/Pages/ExistingUser/Incorrect.svelte";
 
-  export let proc: App;
+  export let proc: App | "disposed";
   export let pid: number;
+  export let closing = false;
 
   let app: ReadableStore<App>;
   let style = "";
@@ -24,6 +24,8 @@
 
   onMount(async () => {
     focusedPid.set(pid);
+
+    proc = proc as App;
 
     pos = { ...proc.pos };
     app = Store<App>(proc);
@@ -75,7 +77,7 @@
     class:glass={$app.glass}
     class:visible
     class:focused={$focusedPid == pid}
-    class:closing={$closedPids.includes(pid)}
+    class:closing
     {style}
     on:mousedown={handleMouse}
     on:neodrag:end={dragEnd}
@@ -94,4 +96,5 @@
       <svelte:component this={$app.content} {pid} {$app} {runtime} />
     </div>
   </window>
+  <div class="dom-padding"></div>
 {/if}
