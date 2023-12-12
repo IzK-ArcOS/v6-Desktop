@@ -6,7 +6,7 @@
 <div class="process-renderer">
   {#each [...$processes] as [pid, proc]}
     {#if proc == "disposed"}
-      <div class="disposed pid-{pid}"></div>
+      <div class="disposed pid-{pid}" />
     {:else}
       <Window {proc} {pid} closing={$closedPids.includes(pid)} />
     {/if}
