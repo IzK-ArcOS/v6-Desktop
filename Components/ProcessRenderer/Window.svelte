@@ -20,15 +20,15 @@
   let visible = false;
   let runtime: AppRuntime;
   let window: HTMLDivElement;
-  let pos: Coordinate = { x: 0, y: 0 };
+  let pos: ReadableStore<Coordinate> = Store<Coordinate>({ x: 0, y: 0 });
 
   onMount(async () => {
     focusedPid.set(pid);
 
     proc = proc as App;
 
-    pos = { ...proc.pos };
     app = Store<App>(proc);
+    $pos = { ...$app.pos };
 
     app.subscribe((v) => {
       if (!v) return;
@@ -49,8 +49,14 @@
   }
 
   function dragEnd(e: CustomEvent<DragEventData>) {
+    return; // TEMP
     $app.pos.x = e.detail.offsetX;
     $app.pos.y = e.detail.offsetY;
+  }
+
+  function drag(e: CustomEvent<DragEventData>) {
+    // return; // TEMP
+    $pos = { x: e.detail.offsetX, y: e.detail.offsetY };
   }
 
   focusedPid.subscribe((v) => {
@@ -81,20 +87,17 @@
     {style}
     on:mousedown={handleMouse}
     on:neodrag:end={dragEnd}
+    on:neodrag={drag}
     use:draggable={{
-      /*       disabled:
-        $app.state.maximized || $app.metadata.core || $app.state.minimized, */
       handle: ".titlebar",
       bounds: { top: 0, left: 0, right: 0, bottom: -1000 },
-      position: { x: $app.pos.x, y: $app.pos.y },
+      position: $pos,
+      defaultPosition: $pos,
     }}
   >
-    {#if !$app.metadata.core}
-      <Titlebar {app} {pid} />
-    {/if}
+    <Titlebar {app} {pid} />
     <div class="body">
-      <svelte:component this={$app.content} {pid} {$app} {runtime} />
+      <svelte:component this={$app.content} {pid} app={$app} {runtime} />
     </div>
   </window>
-  <div class="dom-padding"></div>
 {/if}
