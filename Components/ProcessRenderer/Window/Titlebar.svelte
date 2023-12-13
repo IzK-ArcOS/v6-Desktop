@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ARCOS_MODE } from "$ts/metadata";
   import { closedPids } from "$ts/stores/apps";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
@@ -19,7 +20,12 @@
   <div class="titlebar" on:dblclick={maximize}>
     <div class="title">
       <img src={$app.metadata.icon} alt={$app.id} />
-      <span>{$app.metadata.name} - {$app.metadata.version} - {pid}</span>
+      <span>
+        {$app.metadata.name}
+        {#if ARCOS_MODE == "development"}
+          <span> - {$app.metadata.version} - {pid}</span>
+        {/if}
+      </span>
     </div>
     <Controls {app} {pid} />
   </div>
