@@ -48,14 +48,11 @@
     $focusedPid = pid;
   }
 
-  function dragEnd(e: CustomEvent<DragEventData>) {
-    return; // TEMP
-    $app.pos.x = e.detail.offsetX;
-    $app.pos.y = e.detail.offsetY;
-  }
-
   function drag(e: CustomEvent<DragEventData>) {
-    // return; // TEMP
+    $focusedPid = pid;
+
+    if ($app.state.maximized) return;
+
     $pos = { x: e.detail.offsetX, y: e.detail.offsetY };
   }
 
@@ -86,9 +83,9 @@
     class:closing
     {style}
     on:mousedown={handleMouse}
-    on:neodrag:end={dragEnd}
     on:neodrag={drag}
     use:draggable={{
+      disabled: $app.state.maximized,
       handle: ".titlebar",
       bounds: { top: 0, left: 0, right: 0, bottom: -1000 },
       position: $pos,

@@ -1,22 +1,14 @@
 <script lang="ts">
   import { loadBuiltinApps } from "$ts/apps/builtins";
+  import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
-  import { spawnProcess } from "$ts/apps/process";
-  import { sleep } from "$ts/util";
   import "./css/main.css";
 
-  let show = true;
+  let show = false;
 
   onMount(async () => {
     await loadBuiltinApps();
-
-    spawnProcess("ArcTerm");
-    spawnProcess("ArcTerm");
-    spawnProcess("ArcTerm");
-    spawnProcess("ArcTerm");
-    spawnProcess("ArcTerm");
-
     await sleep(500);
 
     show = true;
