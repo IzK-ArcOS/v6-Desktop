@@ -7,6 +7,7 @@
   import { UserDataStore } from "$ts/stores/user";
   import { darkenColor, invertColor, lightenColor } from "$ts/color";
   import { spawnProcess } from "$ts/apps/process";
+  import { setUserData } from "$ts/server/user/data";
 
   let show = false;
   let style = "";
@@ -22,6 +23,10 @@
   });
 
   UserDataStore.subscribe((v) => {
+    if (!v) return;
+
+    setUserData(v);
+
     accent = $UserDataStore.sh.desktop.accent || "70D6FF";
 
     style = `

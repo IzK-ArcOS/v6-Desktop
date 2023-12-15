@@ -10,6 +10,7 @@
   import { DragEventData, draggable } from "@neodrag/svelte";
   import { onMount } from "svelte";
   import Titlebar from "./Window/Titlebar.svelte";
+  import { UserDataStore } from "$ts/stores/user";
 
   export let proc: App | "disposed";
   export let pid: number;
@@ -67,12 +68,13 @@
   });
 </script>
 
-{#if $app && typeof pid == "number" && runtime}
+{#if $app && typeof pid == "number" && runtime && $UserDataStore}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <window
     bind:this={window}
     data-pid={pid}
     id={$app.id}
+    class="taskbar-bounds tb-{$UserDataStore.sh.taskbar.pos}"
     class:minimized={$app.state.minimized}
     class:maximized={$app.state.maximized}
     class:headless={$app.state.headless}
@@ -82,6 +84,7 @@
     class:glass={$app.glass}
     class:visible
     class:focused={$focusedPid == pid}
+    class:docked={$UserDataStore.sh.taskbar.docked}
     class:closing
     {style}
     on:mousedown={handleMouse}
