@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ARCOS_MODE } from "$ts/metadata";
-  import { closedPids } from "$ts/stores/apps";
+  import { ClosedPids } from "$ts/stores/apps";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
   import Controls from "./Titlebar/Controls.svelte";
@@ -9,7 +9,7 @@
   export let pid: number;
 
   function maximize() {
-    if ($closedPids.includes(pid)) return; // Closing: don't do anything
+    if ($ClosedPids.includes(pid)) return; // Closing: don't do anything
 
     $app.state.maximized = !$app.state.maximized;
   }
