@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { killProcess } from "$ts/apps/process";
+  import { killProcess } from "$ts/apps/process/kill";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
 

@@ -62,6 +62,8 @@
     $maxZIndex++;
 
     window.style.zIndex = `${$maxZIndex}`;
+
+    $app.state.minimized = false;
   });
 </script>
 

@@ -11,7 +11,7 @@
   function maximize() {
     if ($ClosedPids.includes(pid)) return; // Closing: don't do anything
 
-    $app.state.maximized = !$app.state.maximized;
+    //$app.state.maximized = !$app.state.maximized;
   }
 </script>
 
