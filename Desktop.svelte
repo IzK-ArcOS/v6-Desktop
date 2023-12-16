@@ -12,6 +12,7 @@
   let show = false;
   let style = "";
   let accent = "";
+  let theme = "";
 
   onMount(async () => {
     await loadBuiltinApps();
@@ -28,6 +29,7 @@
     setUserData(v);
 
     accent = $UserDataStore.sh.desktop.accent || "70D6FF";
+    theme = $UserDataStore.sh.desktop.theme || "dark";
 
     style = `
     --accent: #${accent} !important;
@@ -40,6 +42,6 @@
   });
 </script>
 
-<div class="desktop" {style} class:show>
+<div class="desktop theme-{theme}" {style} class:show>
   <ProcessRenderer />
 </div>

@@ -85,6 +85,7 @@
     class:visible
     class:focused={$focusedPid == pid}
     class:docked={$UserDataStore.sh.taskbar.docked}
+    class:bigtb={$UserDataStore.sh.window.bigtb}
     class:closing
     {style}
     on:mousedown={handleMouse}
