@@ -8,6 +8,9 @@
   import { darkenColor, invertColor, lightenColor } from "$ts/color";
   import { spawnProcess } from "$ts/apps/process";
   import { setUserData } from "$ts/server/user/data";
+  import { createTrayIcon, disposeTrayIcon } from "$apps/Shell/ts/tray";
+  import { DefaultIcon } from "$ts/images/apps";
+  import { FileIcon } from "$ts/images/filesystem";
 
   let show = false;
   let style = "";
@@ -39,6 +42,15 @@
     --accent-darkest: ${darkenColor(accent, 90)} !important;
     --accent-light-transparent: ${lightenColor(accent)}77 !important;
     --accent-light-invert: ${invertColor(lightenColor(accent))} !important;`;
+
+    createTrayIcon({
+      identifier: `${Math.floor(Math.random() * 1e9)}`,
+      image: FileIcon,
+      onOpen(tray) {
+        disposeTrayIcon(tray.identifier);
+      },
+      title: `UserDataStore updated`,
+    });
   });
 </script>
 
