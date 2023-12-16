@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { killProcess } from "$ts/apps/process/kill";
+  import { ProcessStack } from "$ts/stores/process";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
 
@@ -15,7 +15,7 @@
   }
 
   function close() {
-    killProcess(pid);
+    ProcessStack.kill(pid);
   }
 </script>
 

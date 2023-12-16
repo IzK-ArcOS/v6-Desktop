@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ARCOS_MODE } from "$ts/metadata";
-  import { ClosedPids } from "$ts/stores/apps";
+  import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
@@ -9,8 +9,12 @@
   export let app: ReadableStore<App>;
   export let pid: number;
 
+  let closing = false;
+
+  ProcessStack.closedPids.subscribe((v) => (closing = v.includes(pid)));
+
   function maximize() {
-    if ($ClosedPids.includes(pid)) return; // Closing: don't do anything
+    if (closing) return; // Closing: don't do anything
 
     //$app.state.maximized = !$app.state.maximized;
   }

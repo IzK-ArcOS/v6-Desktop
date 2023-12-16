@@ -1,16 +1,15 @@
 <script lang="ts">
+  import { createTrayIcon, disposeTrayIcon } from "$apps/Shell/ts/tray";
   import { loadBuiltinApps } from "$ts/apps/builtins";
+  import { spawnApp } from "$ts/apps/spawn";
+  import { darkenColor, invertColor, lightenColor } from "$ts/color";
+  import { FileIcon } from "$ts/images/filesystem";
+  import { setUserData } from "$ts/server/user/data";
+  import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import "./css/main.css";
-  import { UserDataStore } from "$ts/stores/user";
-  import { darkenColor, invertColor, lightenColor } from "$ts/color";
-  import { spawnProcess } from "$ts/apps/process";
-  import { setUserData } from "$ts/server/user/data";
-  import { createTrayIcon, disposeTrayIcon } from "$apps/Shell/ts/tray";
-  import { DefaultIcon } from "$ts/images/apps";
-  import { FileIcon } from "$ts/images/filesystem";
 
   let show = false;
   let style = "";
@@ -21,7 +20,7 @@
     await loadBuiltinApps();
     await sleep(500);
 
-    spawnProcess("ArcTerm");
+    spawnApp("ArcTerm");
 
     show = true;
   });
