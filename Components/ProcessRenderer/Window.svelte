@@ -28,7 +28,7 @@
 
     proc = proc as App;
 
-    app = Store<App>(proc);
+    app = Store<App>({ ...proc });
     $pos = { ...$app.pos };
 
     app.subscribe((v) => {
@@ -62,10 +62,22 @@
 
     $maxZIndex++;
 
+    $app.size.w = window.offsetWidth;
+    $app.size.h = window.offsetHeight;
+
+    style = generateCSS($app);
+
     window.style.zIndex = `${$maxZIndex}`;
 
     $app.state.minimized = false;
   });
+
+  function resize() {
+    if ($app.state.maximized) return;
+
+    $app.size.w = window.offsetWidth;
+    $app.size.h = window.offsetHeight;
+  }
 </script>
 
 {#if $app && typeof pid == "number" && runtime && $UserDataStore}
@@ -90,6 +102,8 @@
     {style}
     on:mousedown={handleMouse}
     on:neodrag={drag}
+    on:resize={resize}
+    on:mousedown={resize}
     use:draggable={{
       disabled: $app.state.maximized,
       handle: ".titlebar",
