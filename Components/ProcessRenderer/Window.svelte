@@ -11,38 +11,45 @@
   import { onMount } from "svelte";
   import Titlebar from "./Window/Titlebar.svelte";
   import { UserDataStore } from "$ts/stores/user";
+  import { getAppById } from "$ts/apps/utils";
 
-  export let proc: App | "disposed";
   export let pid: number;
   export let closing = false;
+  export let id: string;
 
-  let app: ReadableStore<App>;
+  let app: ReadableStore<App> = Store(null);
   let style = "";
+  let render = false;
   let visible = false;
   let runtime: AppRuntime;
   let window: HTMLDivElement;
   let pos: ReadableStore<Coordinate> = Store<Coordinate>({ x: 0, y: 0 });
+  let inited = false;
 
   onMount(async () => {
-    focusedPid.set(pid);
+    render = true;
 
-    proc = proc as App;
+    await sleep(0);
 
-    app = Store<App>({ ...proc });
+    app = Store<App>(Object.create(getAppById(id)));
     $pos = { ...$app.pos };
-
-    app.subscribe((v) => {
-      if (!v) return;
-
-      $maxZIndex++;
-      style = generateCSS(v);
-    });
-
+    style = generateCSS(getAppById(id));
     runtime = new $app.runtime($app);
 
     await sleep(100);
 
     visible = true;
+
+    focusedPid.set(pid);
+  });
+
+  app.subscribe((v) => {
+    if (!v) return;
+
+    $maxZIndex++;
+    style = generateCSS(v);
+
+    inited = true;
   });
 
   function handleMouse() {
@@ -58,14 +65,9 @@
   }
 
   focusedPid.subscribe((v) => {
-    if (!$app || v != pid || $app.metadata.core) return;
+    if (!$app || v != pid || $app.metadata.core || !inited || !window) return;
 
     $maxZIndex++;
-
-    $app.size.w = window.offsetWidth;
-    $app.size.h = window.offsetHeight;
-
-    style = generateCSS($app);
 
     window.style.zIndex = `${$maxZIndex}`;
 
@@ -73,14 +75,14 @@
   });
 
   function resize() {
-    if ($app.state.maximized) return;
+    if ($app.state.maximized || !inited) return;
 
     $app.size.w = window.offsetWidth;
     $app.size.h = window.offsetHeight;
   }
 </script>
 
-{#if $app && typeof pid == "number" && runtime && $UserDataStore}
+{#if $app && typeof pid == "number" && runtime && $UserDataStore && render}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <window
     bind:this={window}
@@ -114,7 +116,10 @@
   >
     <Titlebar {app} {pid} />
     <div class="body">
-      <svelte:component this={$app.content} {pid} app={$app} {runtime} />
+      {#if visible}
+        <svelte:component this={$app.content} {pid} app={$app} {runtime} />
+      {/if}
     </div>
   </window>
+  <div class="filler" data-pid={pid}></div>
 {/if}
