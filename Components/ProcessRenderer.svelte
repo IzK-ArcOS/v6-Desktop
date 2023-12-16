@@ -1,9 +1,9 @@
 <script lang="ts">
   import { ProcessStack } from "$ts/stores/process";
-  import { Process } from "$types/process";
+  import { ProcessMap } from "$types/process";
   import Window from "./ProcessRenderer/Window.svelte";
 
-  let map: Map<number, Process | "disposed">;
+  let map: ProcessMap;
 
   ProcessStack.processes.subscribe((v) => {
     map = null;
@@ -13,10 +13,10 @@
 
 <div class="process-renderer">
   {#each [...map] as [pid, proc]}
-    {#if proc == "disposed"}
+    {#if proc._disposed}
       <div class="disposed pid-{pid}" />
     {:else if proc.app}
-      <Window id={proc.app.id} {pid} closing={ProcessStack.isClosed(pid)} />
+      <Window id={proc.app.id} {pid} />
     {/if}
   {/each}
 </div>

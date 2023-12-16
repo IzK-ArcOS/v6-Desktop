@@ -4,12 +4,13 @@
   import { spawnApp } from "$ts/apps/spawn";
   import { darkenColor, invertColor, lightenColor } from "$ts/color";
   import { FileIcon } from "$ts/images/filesystem";
-  import { setUserData } from "$ts/server/user/data";
+  import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import "./css/main.css";
+  import { UserDataCommitter } from "./ts/userdata";
 
   let show = false;
   let style = "";
@@ -21,14 +22,13 @@
     await sleep(500);
 
     spawnApp("ArcTerm");
+    await ProcessStack.spawn(UserDataCommitter, "UserDataCommitter");
 
     show = true;
   });
 
   UserDataStore.subscribe((v) => {
     if (!v) return;
-
-    setUserData(v);
 
     accent = $UserDataStore.sh.desktop.accent || "70D6FF";
     theme = $UserDataStore.sh.desktop.theme || "dark";
@@ -41,15 +41,6 @@
     --accent-darkest: ${darkenColor(accent, 90)} !important;
     --accent-light-transparent: ${lightenColor(accent)}77 !important;
     --accent-light-invert: ${invertColor(lightenColor(accent))} !important;`;
-
-    createTrayIcon({
-      identifier: `${Math.floor(Math.random() * 1e9)}`,
-      image: FileIcon,
-      onOpen(tray) {
-        disposeTrayIcon(tray.identifier);
-      },
-      title: `UserDataStore updated`,
-    });
   });
 </script>
 

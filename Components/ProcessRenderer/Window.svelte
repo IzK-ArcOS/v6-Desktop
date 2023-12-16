@@ -12,11 +12,12 @@
   import Titlebar from "./Window/Titlebar.svelte";
   import { UserDataStore } from "$ts/stores/user";
   import { getAppById } from "$ts/apps/utils";
+  import { ProcessStack } from "$ts/stores/process";
 
   export let pid: number;
-  export let closing = false;
   export let id: string;
 
+  let closing = false;
   let app: ReadableStore<App> = Store(null);
   let style = "";
   let render = false;
@@ -25,6 +26,8 @@
   let window: HTMLDivElement;
   let pos: ReadableStore<Coordinate> = Store<Coordinate>({ x: 0, y: 0 });
   let inited = false;
+
+  ProcessStack.closedPids.subscribe((v) => (closing = v.includes(pid)));
 
   onMount(async () => {
     render = true;
