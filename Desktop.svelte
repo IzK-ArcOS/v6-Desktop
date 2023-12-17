@@ -11,6 +11,7 @@
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import "./css/main.css";
   import { UserDataCommitter } from "./ts/userdata";
+  import { ArcSoundBus } from "$ts/soundbus";
 
   let show = false;
   let style = "";
@@ -19,6 +20,10 @@
 
   onMount(async () => {
     await loadBuiltinApps();
+
+    console.log(ArcSoundBus);
+    ArcSoundBus.playSound("arcos.system.logon");
+
     await sleep(500);
 
     spawnApp("ArcTerm");
