@@ -2,19 +2,19 @@
   import "$css/desktop/window.css";
   import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
+  import { getAppById } from "$ts/apps/utils";
   import { focusedPid, maxZIndex } from "$ts/stores/apps";
+  import { ProcessStack } from "$ts/stores/process";
+  import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { Store } from "$ts/writable";
   import { App, Coordinate } from "$types/app";
   import { ReadableStore } from "$types/writable";
   import { DragEventData, draggable } from "@neodrag/svelte";
   import { onMount } from "svelte";
-  import Titlebar from "./Window/Titlebar.svelte";
-  import { UserDataStore } from "$ts/stores/user";
-  import { getAppById } from "$ts/apps/utils";
-  import { ProcessStack } from "$ts/stores/process";
-  import SubProcessRenderer from "../SubProcessRenderer.svelte";
   import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
+  import SubProcessRenderer from "../SubProcessRenderer.svelte";
+  import Titlebar from "./Window/Titlebar.svelte";
 
   export let pid: number;
   export let id: string;
@@ -36,10 +36,13 @@
 
     await sleep(0);
 
-    app.set(Object.create(getAppById(id)));
+    const proc = ProcessStack.getProcess(pid);
+    const data = proc.app || getAppById(id);
+
+    app.set(Object.create(data));
     $pos = { ...$app.pos };
-    style = generateCSS(getAppById(id));
-    runtime = new $app.runtime($app, app);
+    style = generateCSS(data);
+    runtime = new $app.runtime($app, app, ProcessStack.getProcess(pid));
 
     await sleep(100);
 
