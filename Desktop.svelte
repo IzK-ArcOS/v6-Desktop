@@ -27,7 +27,11 @@
     await sleep(500);
 
     spawnApp("ArcTerm");
-    await ProcessStack.spawn(UserDataCommitter, "UserDataCommitter");
+
+    await ProcessStack.spawn({
+      proc: UserDataCommitter,
+      name: "UserDataCommitter",
+    });
 
     show = true;
   });

@@ -13,6 +13,7 @@
   import { UserDataStore } from "$ts/stores/user";
   import { getAppById } from "$ts/apps/utils";
   import { ProcessStack } from "$ts/stores/process";
+  import SubProcessRenderer from "../SubProcessRenderer.svelte";
 
   export let pid: number;
   export let id: string;
@@ -42,6 +43,7 @@
     await sleep(100);
 
     visible = true;
+    inited = true;
 
     focusedPid.set(pid);
   });
@@ -51,8 +53,6 @@
 
     $maxZIndex++;
     style = generateCSS(v);
-
-    inited = true;
   });
 
   function handleMouse() {
@@ -76,13 +76,6 @@
 
     $app.state.minimized = false;
   });
-
-  function resize() {
-    if ($app.state.maximized || !inited) return;
-
-    $app.size.w = window.offsetWidth;
-    $app.size.h = window.offsetHeight;
-  }
 </script>
 
 {#if $app && typeof pid == "number" && runtime && $UserDataStore && render}
@@ -107,8 +100,6 @@
     {style}
     on:mousedown={handleMouse}
     on:neodrag={drag}
-    on:resize={resize}
-    on:mousedown={resize}
     use:draggable={{
       disabled: $app.state.maximized,
       handle: ".titlebar",
@@ -124,5 +115,5 @@
       {/if}
     </div>
   </window>
-  <div class="filler" data-pid={pid}></div>
+  <SubProcessRenderer {pid} />
 {/if}
