@@ -30,9 +30,9 @@
 
     await sleep(0);
 
-    data = Store<App>(Object.create(app));
+    data.set(Object.create(app));
     style = generateCSS($data);
-    runtime = new $data.runtime($data);
+    runtime = new $data.runtime($data, data);
 
     await sleep(100);
 

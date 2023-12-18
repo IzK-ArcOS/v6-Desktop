@@ -36,10 +36,10 @@
 
     await sleep(0);
 
-    app = Store<App>(Object.create(getAppById(id)));
+    app.set(Object.create(getAppById(id)));
     $pos = { ...$app.pos };
     style = generateCSS(getAppById(id));
-    runtime = new $app.runtime($app);
+    runtime = new $app.runtime($app, app);
 
     await sleep(100);
 
@@ -50,6 +50,7 @@
   });
 
   app.subscribe((v) => {
+    console.log(`APP UPDATE! ${id}, ${pid}`);
     if (!v) return;
 
     $maxZIndex++;
@@ -112,7 +113,13 @@
     <Titlebar {app} {pid} />
     <div class="body">
       {#if visible}
-        <svelte:component this={$app.content} {pid} app={$app} {runtime} />
+        <svelte:component
+          this={$app.content}
+          {pid}
+          app={$app}
+          appMutator={app}
+          {runtime}
+        />
       {/if}
     </div>
     <OverlayProcessRenderer {pid} />
