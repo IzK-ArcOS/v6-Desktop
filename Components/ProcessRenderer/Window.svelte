@@ -14,6 +14,7 @@
   import { getAppById } from "$ts/apps/utils";
   import { ProcessStack } from "$ts/stores/process";
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
+  import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
 
   export let pid: number;
   export let id: string;
@@ -114,6 +115,7 @@
         <svelte:component this={$app.content} {pid} app={$app} {runtime} />
       {/if}
     </div>
+    <OverlayProcessRenderer {pid} />
   </window>
   <SubProcessRenderer {pid} />
 {/if}

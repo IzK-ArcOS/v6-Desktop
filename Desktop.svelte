@@ -21,7 +21,6 @@
   onMount(async () => {
     await loadBuiltinApps();
 
-    console.log(ArcSoundBus);
     ArcSoundBus.playSound("arcos.system.logon");
 
     await sleep(500);

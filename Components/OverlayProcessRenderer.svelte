@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ProcessStack } from "$ts/stores/process";
   import { ProcessMap } from "$types/process";
-  import Window from "./ProcessRenderer/Window.svelte";
+  import OverlayWindow from "./OverlayProcessRenderer/OverlayWindow.svelte";
 
   export let pid: number;
 
@@ -9,16 +9,16 @@
 
   ProcessStack.processes.subscribe(() => {
     map = null;
-    map = ProcessStack.getSubProcesses(pid);
+    map = ProcessStack.getOverlayProcesses(pid);
   });
 </script>
 
-<div class="process-renderer subprocesses">
+<div class="process-renderer">
   {#each [...map] as [pid, proc]}
     {#if proc._disposed}
       <div class="disposed pid-{pid}" />
-    {:else if proc.app && proc.parentPid && !proc.app.isOverlay}
-      <Window id={proc.app.id} {pid} />
+    {:else if proc.app && proc.parentPid && proc.app.isOverlay}
+      <OverlayWindow app={proc.app} {pid} />
     {/if}
   {/each}
 </div>
