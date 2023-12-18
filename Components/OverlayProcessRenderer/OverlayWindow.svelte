@@ -20,8 +20,6 @@
   let closing = false;
   let style = "";
   let runtime: AppRuntime;
-  let window: HTMLDivElement;
-  let inited = false;
 
   ProcessStack.closedPids.subscribe((v) => (closing = v.includes(pid)));
 
@@ -37,7 +35,6 @@
     await sleep(100);
 
     visible = true;
-    inited = true;
   });
 
   data.subscribe((v) => {
@@ -49,7 +46,6 @@
 
 {#if $data && typeof pid == "number" && runtime && $UserDataStore && render}
   <window
-    bind:this={window}
     data-pid={pid}
     id={$data.id}
     class="overlay headless"
