@@ -53,7 +53,6 @@
   });
 
   app.subscribe((v) => {
-    console.log(`APP UPDATE! ${id}, ${pid}`);
     if (!v) return;
 
     $maxZIndex++;
