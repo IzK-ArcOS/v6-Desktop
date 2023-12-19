@@ -23,8 +23,6 @@
 
     await sleep(500);
 
-    spawnApp("ArcTerm");
-
     await ProcessStack.spawn({
       proc: UserDataCommitter,
       name: "UserDataCommitter",
@@ -41,6 +39,7 @@
 
     style = `
     --accent: #${accent} !important;
+    --accent-transparent: #${accent}44 !important;
     --accent-light: ${lightenColor(accent)} !important;
     --accent-lighter: ${lightenColor(accent, 0.65)} !important;
     --accent-dark: ${darkenColor(accent, 75)} !important;
