@@ -21,21 +21,21 @@
 
 <div class="controls">
   <button
-    class="min material-icons-round"
+    class="min material-icons-round titlebar-control reset"
     disabled={!$app.controls.minimize}
     on:click={minimize}
   >
     minimize
   </button>
   <button
-    class="max material-icons-round"
+    class="max material-icons-round titlebar-control reset"
     disabled={!$app.controls.maximize}
     on:click={maximize}
   >
     crop_square
   </button>
   <button
-    class="close material-icons-round"
+    class="close material-icons-round titlebar-control reset"
     disabled={!$app.controls.close}
     on:click={close}
   >

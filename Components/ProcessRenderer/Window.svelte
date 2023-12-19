@@ -15,6 +15,7 @@
   import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
   import Titlebar from "./Window/Titlebar.svelte";
+  import Body from "./Window/Body.svelte";
 
   export let pid: number;
   export let id: string;
@@ -51,14 +52,14 @@
 
     focusedPid.set(pid);
   });
-
+  /* 
   app.subscribe((v) => {
     if (!v) return;
 
     $maxZIndex++;
     style = generateCSS(v);
   });
-
+ */
   function handleMouse() {
     $focusedPid = pid;
   }
@@ -112,18 +113,10 @@
       defaultPosition: $pos,
     }}
   >
-    <Titlebar {app} {pid} />
-    <div class="body">
-      {#if visible}
-        <svelte:component
-          this={$app.content}
-          {pid}
-          app={$app}
-          appMutator={app}
-          {runtime}
-        />
-      {/if}
-    </div>
+    {#if !$app.state.headless}
+      <Titlebar {app} {pid} />
+    {/if}
+    <Body {app} {pid} {visible} {runtime} />
     <OverlayProcessRenderer {pid} />
   </window>
   <SubProcessRenderer {pid} />
