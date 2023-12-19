@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { createTrayIcon, disposeTrayIcon } from "$apps/Shell/ts/tray";
   import { loadBuiltinApps } from "$ts/apps/builtins";
   import { spawnApp } from "$ts/apps/spawn";
   import { darkenColor, invertColor, lightenColor } from "$ts/color";
-  import { FileIcon } from "$ts/images/filesystem";
+  import { ArcSoundBus } from "$ts/soundbus";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
@@ -11,7 +10,6 @@
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import "./css/main.css";
   import { UserDataCommitter } from "./ts/userdata";
-  import { ArcSoundBus } from "$ts/soundbus";
 
   let show = false;
   let style = "";

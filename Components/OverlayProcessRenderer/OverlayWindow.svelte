@@ -8,8 +8,8 @@
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
   import { onMount } from "svelte";
-  import SubProcessRenderer from "../SubProcessRenderer.svelte";
   import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
+  import SubProcessRenderer from "../SubProcessRenderer.svelte";
 
   export let pid: number;
   export let app: App;
@@ -45,6 +45,7 @@
 </script>
 
 {#if $data && typeof pid == "number" && runtime && $UserDataStore && render}
+  <div class="overlay-shade" data-pid={pid} class:visible class:closing />
   <window
     data-pid={pid}
     id={$data.id}

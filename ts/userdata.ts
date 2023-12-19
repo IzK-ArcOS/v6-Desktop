@@ -5,7 +5,7 @@ import { setUserData } from "$ts/server/user/data";
 import { UserDataStore } from "$ts/stores/user";
 import { App } from "$types/app";
 import { UserData } from "$types/user";
-import { Subscriber, Unsubscriber } from "svelte/store";
+import { Unsubscriber } from "svelte/store";
 
 export class UserDataCommitter extends Process {
   unsubscribe: Unsubscriber;
