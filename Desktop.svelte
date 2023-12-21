@@ -1,6 +1,5 @@
 <script lang="ts">
   import { loadBuiltinApps } from "$ts/apps/builtins";
-  import { spawnApp } from "$ts/apps/spawn";
   import { darkenColor, invertColor, lightenColor } from "$ts/color";
   import { ArcSoundBus } from "$ts/soundbus";
   import { ProcessStack } from "$ts/stores/process";

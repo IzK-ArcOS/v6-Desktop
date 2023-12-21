@@ -14,8 +14,8 @@
   import { onMount } from "svelte";
   import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
-  import Titlebar from "./Window/Titlebar.svelte";
   import Body from "./Window/Body.svelte";
+  import Titlebar from "./Window/Titlebar.svelte";
 
   export let pid: number;
   export let id: string;
