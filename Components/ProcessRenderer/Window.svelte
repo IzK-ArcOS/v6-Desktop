@@ -16,9 +16,11 @@
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
   import Body from "./Window/Body.svelte";
   import Titlebar from "./Window/Titlebar.svelte";
+  import { ProcessHandler } from "$ts/process";
 
   export let pid: number;
   export let id: string;
+  export let handler: ProcessHandler;
 
   let closing = false;
   let app: ReadableStore<App> = Store(null);
@@ -30,20 +32,18 @@
   let pos: ReadableStore<Coordinate> = Store<Coordinate>({ x: 0, y: 0 });
   let inited = false;
 
-  ProcessStack.closedPids.subscribe((v) => (closing = v.includes(pid)));
-
   onMount(async () => {
     render = true;
 
     await sleep(0);
 
-    const proc = ProcessStack.getProcess(pid);
+    const proc = handler.getProcess(pid);
     const data = proc.app || getAppById(id);
 
     app.set(Object.create(data));
     $pos = { ...$app.pos };
     style = generateCSS(data);
-    runtime = new $app.runtime($app, app, ProcessStack.getProcess(pid));
+    runtime = new $app.runtime($app, app, handler.getProcess(pid));
 
     await sleep(100);
 
@@ -51,6 +51,8 @@
     inited = true;
 
     focusedPid.set(pid);
+
+    handler.closedPids.subscribe((v) => (closing = v.includes(pid)));
   });
   /* 
   app.subscribe((v) => {
@@ -114,7 +116,7 @@
     }}
   >
     {#if !$app.state.headless}
-      <Titlebar {app} {pid} />
+      <Titlebar {app} {pid} {handler} />
     {/if}
     <Body {app} {pid} {visible} {runtime} />
     <OverlayProcessRenderer {pid} />

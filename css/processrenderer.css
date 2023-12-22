@@ -1,0 +1,8 @@
+div.process-renderer {
+  pointer-events: none;
+  overflow: hidden;
+}
+
+div.process-renderer > * {
+  pointer-events: initial;
+}
