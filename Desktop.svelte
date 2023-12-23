@@ -1,6 +1,6 @@
 <script lang="ts">
   import { loadBuiltinApps } from "$ts/apps/builtins";
-  import { darkenColor, invertColor, lightenColor } from "$ts/color";
+  import { darkenColor, hex3to6, invertColor, lightenColor } from "$ts/color";
   import { ArcSoundBus } from "$ts/soundbus";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
@@ -37,10 +37,10 @@
     theme = $UserDataStore.sh.desktop.theme || "dark";
 
     style = `
-    --accent: #${accent} !important;
-    --accent-transparent: #${accent}44 !important;
+    --accent: ${hex3to6(accent)} !important;
+    --accent-transparent: ${hex3to6(accent)}44 !important;
     --accent-light: ${lightenColor(accent)} !important;
-    --accent-lighter: ${lightenColor(accent, 0.65)} !important;
+    --accent-lighter: ${lightenColor(accent, 6.5)} !important;
     --accent-dark: ${darkenColor(accent, 75)} !important;
     --accent-darkest: ${darkenColor(accent, 90)} !important;
     --accent-light-transparent: ${lightenColor(accent)}77 !important;

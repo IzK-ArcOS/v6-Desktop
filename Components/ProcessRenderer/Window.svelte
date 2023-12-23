@@ -3,6 +3,7 @@
   import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
   import { getAppById } from "$ts/apps/utils";
+  import { ProcessHandler } from "$ts/process";
   import { focusedPid, maxZIndex } from "$ts/stores/apps";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
@@ -16,7 +17,6 @@
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
   import Body from "./Window/Body.svelte";
   import Titlebar from "./Window/Titlebar.svelte";
-  import { ProcessHandler } from "$ts/process";
 
   export let pid: number;
   export let id: string;
@@ -54,14 +54,7 @@
 
     handler.closedPids.subscribe((v) => (closing = v.includes(pid)));
   });
-  /* 
-  app.subscribe((v) => {
-    if (!v) return;
 
-    $maxZIndex++;
-    style = generateCSS(v);
-  });
- */
   function handleMouse() {
     $focusedPid = pid;
   }
