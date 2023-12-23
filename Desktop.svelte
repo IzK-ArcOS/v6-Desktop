@@ -48,6 +48,15 @@
   });
 </script>
 
-<div class="desktop theme-{theme}" {style} class:show>
-  <ProcessRenderer />
-</div>
+{#if $UserDataStore}
+  <div
+    class="desktop theme-{theme}"
+    {style}
+    class:show
+    class:sharp={$UserDataStore.sh.desktop.sharp}
+    class:noani={!$UserDataStore.sh.anim}
+    class:noglass={$UserDataStore.sh.noGlass}
+  >
+    <ProcessRenderer />
+  </div>
+{/if}

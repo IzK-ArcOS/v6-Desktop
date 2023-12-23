@@ -20,7 +20,7 @@
 
   export let pid: number;
   export let id: string;
-  export let handler: ProcessHandler;
+  export let handler: ProcessHandler = ProcessStack;
 
   let closing = false;
   let app: ReadableStore<App> = Store(null);
@@ -91,7 +91,7 @@
     bind:this={window}
     data-pid={pid}
     id={$app.id}
-    class="taskbar-bounds tb-{$UserDataStore.sh.taskbar.pos}"
+    class="taskbar-bounds tb-{$UserDataStore.sh.taskbar.pos} shell-colored"
     class:minimized={$app.state.minimized}
     class:maximized={$app.state.maximized}
     class:headless={$app.state.headless}
@@ -103,6 +103,7 @@
     class:focused={$focusedPid == pid}
     class:docked={$UserDataStore.sh.taskbar.docked}
     class:bigtb={$UserDataStore.sh.window.bigtb}
+    class:colored={$UserDataStore.sh.taskbar.colored && !$app.metadata.core}
     class:closing
     {style}
     on:mousedown={handleMouse}
