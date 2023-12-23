@@ -103,7 +103,9 @@
     class:focused={$focusedPid == pid}
     class:docked={$UserDataStore.sh.taskbar.docked}
     class:bigtb={$UserDataStore.sh.window.bigtb}
-    class:colored={$UserDataStore.sh.taskbar.colored && !$app.metadata.core}
+    class:colored={$UserDataStore.sh.taskbar.colored &&
+      !$app.metadata.core &&
+      $focusedPid == pid}
     class:closing
     {style}
     on:mousedown={handleMouse}
