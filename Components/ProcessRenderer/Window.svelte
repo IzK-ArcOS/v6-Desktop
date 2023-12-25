@@ -37,10 +37,11 @@
 
     await sleep(0);
 
-    const proc = handler.getProcess(pid);
-    const data = proc.app || getAppById(id);
+    const data = getAppById(id);
 
-    app.set(Object.create(data));
+    console.log(data);
+
+    app.set(Object.freeze(data));
     $pos = { ...$app.pos };
     style = generateCSS(data);
     runtime = new $app.runtime($app, app, handler.getProcess(pid));
@@ -67,15 +68,26 @@
     $pos = { x: e.detail.offsetX, y: e.detail.offsetY };
   }
 
-  focusedPid.subscribe((v) => {
+  focusedPid.subscribe(async (v) => {
     if (!$app || v != pid || $app.metadata.core || !inited || !window) return;
 
     $maxZIndex++;
 
     window.style.zIndex = `${$maxZIndex}`;
-
-    $app.state.minimized = false;
   });
+
+  // PERSONAL NOTE: @IzKuipers, 10:24 PM @ 25 dec 2023
+  // Window property inheritance on the same process is an underlying issue
+  // Open two instances, maximize one of them, focus the other and minimize it,
+  // it WILL inherit the state of the other instance and be maximized and minimized
+  // at the same time.
+
+  // Potential solutions:
+  // 1) Export the proc from Window.svelte and use `proc.app` instead of requesting it
+  //    from the library, hopefully removing whatever inheritance this is
+  // 2) Turn the state into a single variable instead of multiple, narrowing down the
+  //    list of potential problem factors
+  // 3) scrap v6. I'm not kidding.
 </script>
 
 {#if $app && typeof pid == "number" && runtime && $UserDataStore && render}
