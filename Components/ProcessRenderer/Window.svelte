@@ -39,8 +39,6 @@
 
     const data = getAppById(id);
 
-    console.log(data);
-
     app.set(Object.freeze(data));
     $pos = { ...$app.pos };
     style = generateCSS(data);
