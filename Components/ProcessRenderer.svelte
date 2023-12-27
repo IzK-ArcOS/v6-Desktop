@@ -1,23 +1,23 @@
 <script lang="ts">
   import { ProcessStack } from "$ts/stores/process";
-  import { sleep } from "$ts/util";
+  import { ProcessStoreValue } from "$types/process";
+  import { ReadableStore } from "$types/writable";
+  import { onMount } from "svelte";
   import "../css/processrenderer.css";
   import Window from "./ProcessRenderer/Window.svelte";
 
   export let handler = ProcessStack;
 
-  let render = false;
+  let store: ReadableStore<ProcessStoreValue>;
 
-  handler.processes.subscribe(async () => {
-    render = false;
-    await sleep(0);
-    render = true;
+  onMount(() => {
+    store = handler.processes.mirror;
   });
 </script>
 
-{#if render}
+{#if store}
   <div class="process-renderer fullscreen">
-    {#each handler.processes.get() as [pid, proc]}
+    {#each $store as [pid, proc]}
       {#if proc._disposed}
         <div class="disposed pid-{pid}" />
       {:else if proc.app && !proc.parentPid}
