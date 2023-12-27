@@ -12,6 +12,9 @@
 
   onMount(() => {
     store = handler.processes.mirror;
+    store.subscribe((v) => {
+      console.log(v);
+    });
   });
 </script>
 

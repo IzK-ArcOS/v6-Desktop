@@ -37,11 +37,9 @@
 
     await sleep(0);
 
-    const data = getAppById(id);
-
-    app.set(Object.freeze(data));
+    app.set(getAppById(id));
     $pos = { ...$app.pos };
-    style = generateCSS(data);
+    style = generateCSS($app);
     runtime = new $app.runtime($app, app, handler.getProcess(pid));
 
     await sleep(100);
