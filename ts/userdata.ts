@@ -1,5 +1,3 @@
-import { createTrayIcon, disposeTrayIcon } from "$apps/Shell/ts/tray";
-import { FileIcon } from "$ts/images/filesystem";
 import { Process, ProcessHandler } from "$ts/process";
 import { setUserData } from "$ts/server/user/data";
 import { UserDataStore } from "$ts/stores/user";
@@ -29,15 +27,8 @@ export class UserDataCommitter extends Process {
   }
 
   async commit(data: UserData) {
-    await setUserData(data);
+    if (this._paused) return;
 
-    createTrayIcon({
-      identifier: `${this.name} ${this.pid}`,
-      image: FileIcon,
-      onOpen(tray) {
-        disposeTrayIcon(tray.identifier);
-      },
-      title: `UserDataStore updated`,
-    });
+    await setUserData(data);
   }
 }
