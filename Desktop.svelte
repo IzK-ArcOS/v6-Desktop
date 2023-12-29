@@ -1,6 +1,7 @@
 <script lang="ts">
   import { loadBuiltinApps } from "$ts/apps/builtins";
   import { darkenColor, hex3to6, invertColor, lightenColor } from "$ts/color";
+  import { NotificationService, sendNotification } from "$ts/notif";
   import { ArcSoundBus } from "$ts/soundbus";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
@@ -9,8 +10,7 @@
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import "./css/main.css";
   import { UserDataCommitter } from "./ts/userdata";
-  import { NotificationService, sendNotification } from "$ts/notif";
-  import { PasswordIcon } from "$ts/images/general";
+  import { StartCoreProcesses } from "$ts/process/startup";
 
   let render = false;
   let show = false;
@@ -20,31 +20,19 @@
 
   onMount(async () => {
     await loadBuiltinApps();
+    await StartCoreProcesses();
 
     ArcSoundBus.playSound("arcos.system.logon");
 
-    await sleep(500);
-
-    /** TODO: find a better way to start core services */
-    await ProcessStack.spawn({
-      proc: UserDataCommitter,
-      name: "UserDataCommitter",
-    });
-
-    await ProcessStack.spawn({
-      proc: NotificationService,
-      name: "NotificationService",
-    });
+    render = true;
 
     sendNotification({
-      title: "Test",
-      message:
-        "This is a very inclusive and extensive test of the notification service of ArcOS v6. This notification should appear in the notification center. It is handled using the new NotificationService.",
-      image: PasswordIcon,
+      title: "h",
+      message: "a",
     });
 
-    render = true;
-    await sleep(0);
+    await sleep(500);
+
     show = true;
   });
 
