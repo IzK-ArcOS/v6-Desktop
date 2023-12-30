@@ -28,7 +28,7 @@
 
     await sleep(0);
 
-    data.set(Object.create(app));
+    data.set(app);
     style = generateCSS(app);
     runtime = new $data.runtime($data, data, ProcessStack.getProcess(pid));
 
