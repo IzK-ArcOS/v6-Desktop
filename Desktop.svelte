@@ -1,16 +1,14 @@
 <script lang="ts">
   import { loadBuiltinApps } from "$ts/apps/builtins";
   import { darkenColor, hex3to6, invertColor, lightenColor } from "$ts/color";
-  import { NotificationService, sendNotification } from "$ts/notif";
+  import { sendNotification } from "$ts/notif";
+  import { StartCoreProcesses } from "$ts/process/startup";
   import { ArcSoundBus } from "$ts/soundbus";
-  import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import "./css/main.css";
-  import { UserDataCommitter } from "./ts/userdata";
-  import { StartCoreProcesses } from "$ts/process/startup";
 
   let render = false;
   let show = false;

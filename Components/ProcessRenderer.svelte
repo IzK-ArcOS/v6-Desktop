@@ -1,7 +1,7 @@
 <script lang="ts">
-  import "../css/processrenderer.css";
   import { ProcessStack } from "$ts/stores/process";
   import { ProcessMap } from "$types/process";
+  import "../css/processrenderer.css";
   import Window from "./ProcessRenderer/Window.svelte";
 
   export let handler = ProcessStack;
