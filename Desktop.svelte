@@ -54,7 +54,10 @@
 
 {#if $UserDataStore && render}
   <div
-    class="desktop theme-{theme}"
+    class="desktop theme-{theme} cursor-{$UserDataStore.sh.desktop
+      .noCustomCursor
+      ? ''
+      : 'custom'}"
     {style}
     class:show
     class:sharp={$UserDataStore.sh.desktop.sharp}

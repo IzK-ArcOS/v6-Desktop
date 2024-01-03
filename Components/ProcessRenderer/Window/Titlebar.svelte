@@ -2,7 +2,7 @@
   import { ArcOSVersion } from "$ts/env";
   import { ARCOS_MODE } from "$ts/metadata";
   import { ProcessStack } from "$ts/stores/process";
-  import { UserDataStore } from "$ts/stores/user";
+  import { UserDataStore, UserName } from "$ts/stores/user";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
   import Controls from "./Titlebar/Controls.svelte";
@@ -32,7 +32,7 @@
         <span class="title-text">
           {$app.metadata.name}
           {#if ARCOS_MODE == "development"}
-            - {$app.metadata.version} - {pid} [v{ArcOSVersion}-{ARCOS_MODE}]
+            - {$app.metadata.version} - {$UserName} - {pid} [v{ArcOSVersion}-{ARCOS_MODE}]
           {/if}
         </span>
       {/if}
