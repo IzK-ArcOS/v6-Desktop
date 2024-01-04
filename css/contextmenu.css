@@ -1,0 +1,128 @@
+div.desktop div.context-menu {
+  position: absolute;
+  min-width: 180px;
+  min-height: 42px;
+  top: 0px;
+  left: 0px;
+  background-color: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  color: var(--fg);
+  border: var(--win-border);
+  border-radius: var(--win-border-rad);
+  box-sizing: border-box;
+  padding: 5px;
+  overflow: hidden;
+  transition: all 0.3s, top 0s, left 0s !important;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0%);
+}
+
+div.desktop div.context-menu * {
+  pointer-events: none;
+}
+
+div.desktop div.context-menu.show * {
+  pointer-events: initial;
+}
+
+div.desktop div.context-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(100%);
+}
+
+div.desktop div.context-menu::before {
+  opacity: 0.08;
+}
+
+div.desktop div.context-menu button.menu-item {
+  width: 100%;
+  display: flex;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  color: var(--fg);
+  border-radius: var(--button-border-rad);
+  padding: 5px;
+  line-height: 18px;
+  align-items: center;
+  transform: unset;
+  gap: 10px;
+}
+
+div.desktop div.context-menu button.menu-item::after {
+  content: "";
+  font-family: "Material Icons Round";
+  width: 28px;
+  height: 18px;
+  font-size: 18px;
+  margin-left: auto;
+  padding-left: 10px;
+}
+
+div.desktop div.context-menu.compact button.menu-item::after {
+  font-size: 16px;
+  width: 26px;
+  height: 16px;
+}
+
+div.desktop div.context-menu button.menu-item.active::after {
+  content: "check";
+}
+
+div.desktop div.context-menu button.menu-item:hover {
+  background-color: var(--button-glass-bg);
+}
+
+div.desktop div.context-menu.colored button.menu-item:hover {
+  background-color: var(--accent-light-transparent);
+  box-shadow: 0 1px 2px 1px #0000001c;
+}
+
+div.desktop div.context-menu.colored button.menu-item:active {
+  background-color: var(--accent-dark);
+  color: var(--accent-light);
+  box-shadow: none;
+}
+
+div.desktop div.context-menu:not(.compact) button.menu-item div.icon > * {
+  margin-right: 10px;
+}
+
+div.desktop div.context-menu hr {
+  margin: 5px;
+  border: var(--button-glass-bg) 1px solid;
+}
+
+div.desktop div.context-menu.compact {
+  padding: 3px;
+  min-height: 32px;
+}
+
+div.desktop div.context-menu.compact button.menu-item {
+  padding: 4px 6px;
+  font-size: 9pt;
+  height: 24px;
+  line-height: 16px;
+  gap: 5px;
+}
+
+div.desktop div.context-menu button.menu-item .icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+div.desktop div.context-menu.compact button.menu-item .icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+
+div.desktop div.context-menu.compact hr {
+  margin: 3px 5px;
+}

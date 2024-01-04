@@ -26,7 +26,7 @@
   onMount(async () => {
     render = true;
 
-    await sleep(0);
+    await sleep();
 
     data.set(app);
     style = generateCSS(app);

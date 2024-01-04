@@ -9,6 +9,7 @@
   import { onMount } from "svelte";
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import "./css/main.css";
+  import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
 
   let render = false;
   let show = false;
@@ -65,5 +66,6 @@
     class:noglass={$UserDataStore.sh.noGlass}
   >
     <ProcessRenderer />
+    <ContextMenuRenderer />
   </div>
 {/if}

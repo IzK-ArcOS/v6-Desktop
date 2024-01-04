@@ -35,7 +35,7 @@
   onMount(async () => {
     render = true;
 
-    await sleep(0);
+    await sleep();
 
     const proc = handler.getProcess(pid);
     const data = getAppById(id) || proc.app;
