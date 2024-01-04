@@ -1,15 +1,14 @@
 <script lang="ts">
   import { loadBuiltinApps } from "$ts/apps/builtins";
   import { darkenColor, hex3to6, invertColor, lightenColor } from "$ts/color";
-  import { sendNotification } from "$ts/notif";
   import { StartCoreProcesses } from "$ts/process/startup";
   import { ArcSoundBus } from "$ts/soundbus";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
-  import "./css/main.css";
   import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
+  import "./css/main.css";
 
   let render = false;
   let show = false;
@@ -24,11 +23,6 @@
     ArcSoundBus.playSound("arcos.system.logon");
 
     render = true;
-
-    sendNotification({
-      title: "h",
-      message: "a",
-    });
 
     await sleep(500);
 
