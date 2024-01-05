@@ -1,5 +1,6 @@
 import { getAppById } from "$ts/apps";
 import { Log } from "$ts/console";
+import { tryParseInt } from "$ts/int";
 import { sleep } from "$ts/util";
 import { ContextMenuInstance, ContextMenuItem } from "$types/app";
 import { Nullable } from "$types/common";
@@ -9,6 +10,10 @@ export function createContextMenu(data: ContextMenuInstance) {
   Log("Desktop/ts/context", `Spawning Context Menu with ${data.items.length} items at ${data.x}, ${data.y}`);
 
   contextData.set(data)
+}
+
+export function closeContextMenu() {
+  contextData.set(null);
 }
 
 export function assignContextMenuHooks() {
@@ -26,16 +31,17 @@ export function assignContextMenuHooks() {
 }
 
 export async function handleContext(e: MouseEvent) {
-
   const window = getWindowByEventTarget(e.composedPath());
   const scope = getContexMenuScope(e);
 
-  if (!window || !scope) return;
+  if (!window || !scope) return closeContextMenu();
 
   const id = window.id
   const appData = getAppById(id);
 
-  if (!appData) return;
+  if (!appData) return closeContextMenu();
+
+  appData.pid = tryParseInt(window.dataset.pid);
 
   const contextmenu = scope.dataset.contextmenu;
 
@@ -43,8 +49,10 @@ export async function handleContext(e: MouseEvent) {
 
   const items = getContextEntry(id, contextmenu);
 
+  console.log(appData)
+
   createContextMenu({
-    x: e.clientX, y: e.clientY, items, scope: contextmenu, scopeMap: scope.dataset
+    x: e.clientX, y: e.clientY, items, scope: contextmenu, scopeMap: scope.dataset, app: appData
   })
 }
 

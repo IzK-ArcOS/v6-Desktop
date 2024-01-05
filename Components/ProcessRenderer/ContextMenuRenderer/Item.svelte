@@ -12,6 +12,7 @@
   let active = false;
 
   async function trigger() {
+    console.log(window, scopeMap, scope);
     if (data.action) await data.action(window, scopeMap, scope);
 
     await sleep(50);
