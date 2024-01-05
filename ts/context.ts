@@ -49,8 +49,6 @@ export async function handleContext(e: MouseEvent) {
 
   const items = getContextEntry(id, contextmenu);
 
-  console.log(appData)
-
   createContextMenu({
     x: e.clientX, y: e.clientY, items, scope: contextmenu, scopeMap: scope.dataset, app: appData
   })
