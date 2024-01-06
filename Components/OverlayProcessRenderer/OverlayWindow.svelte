@@ -56,7 +56,8 @@
   <window
     data-pid={pid}
     id={$appData.id}
-    class="overlay headless"
+    class="overlay headless shell-colored"
+    class:colored={$UserDataStore.sh.taskbar.colored}
     class:resizable={$appData.state.resizable}
     class:glass={$appData.glass}
     class:visible
