@@ -10,12 +10,18 @@
     composePosition,
   } from "$state/Desktop/ts/context";
   import { sleep } from "$ts/util";
+  import { Store } from "$ts/writable";
 
   let data: ContextMenuInstance;
   let menu: HTMLDivElement;
   let x = 0;
   let y = 0;
   let visible = false;
+  let hideSubs = Store<boolean>(false);
+
+  hideSubs.subscribe((v) => {
+    v && ($hideSubs = false);
+  });
 
   onMount(() => {
     assignContextMenuHooks();
@@ -53,13 +59,14 @@
   style="top: {y}px; left: {x}px; z-index: {$maxZIndex + 10}"
   bind:this={menu}
 >
-  {#if data}
+  {#if data && hideSubs}
     {#each data.items as item}
       <Item
         window={data.app}
         scope={data.scope}
         scopeMap={data.scopeMap}
         data={item}
+        bind:hideSubs
       />
     {/each}
   {/if}

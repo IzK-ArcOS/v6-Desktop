@@ -10,6 +10,7 @@
   import { onMount } from "svelte";
   import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
+  import { focusedPid } from "$ts/stores/apps";
 
   export let pid: number;
   export let app: App;
@@ -29,7 +30,7 @@
     await sleep();
 
     const proc = ProcessStack.getProcess(pid);
-    const data = getAppById(app.id) || proc.app;
+    const data = getAppById(app.id, proc.app);
 
     appData.set(data);
     style = generateCSS(app);
@@ -41,6 +42,8 @@
 
     await sleep(100);
 
+    focusedPid.set(pid);
+
     visible = true;
   });
 
@@ -49,12 +52,18 @@
 
     style = generateCSS(v);
   });
+
+  async function handleMouse() {
+    await sleep();
+    $focusedPid = pid;
+  }
 </script>
 
 {#if $appData && typeof pid == "number" && runtime && $UserDataStore && render}
   {#if !$appData.noOverlayShade}
     <div class="overlay-shade" data-pid={pid} class:visible class:closing />
   {/if}
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <window
     data-pid={pid}
     id={$appData.id}
@@ -65,6 +74,7 @@
     class:visible
     class:closing
     {style}
+    on:mousedown={handleMouse}
   >
     <div class="body">
       {#if visible}

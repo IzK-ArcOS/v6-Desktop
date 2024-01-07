@@ -60,13 +60,6 @@ export function composePosition(
   mW: number,
   mH: number
 ): [number, number] {
-
-  const desktop = document.querySelectorAll(
-    "div.state-ArcOS-desktop > div.desktop"
-  )[0] as HTMLDivElement;
-
-  if (!desktop) return [0, 0];
-
   const dW = window.innerWidth;
   const dH = window.innerHeight;
 
@@ -77,6 +70,20 @@ export function composePosition(
   if (newY + mH > dH) newY = dH - mH - 10;
   if (newX < 0) x = 10;
   if (newY < 0) y = 10;
+
+  return [newX, newY];
+}
+
+export function composeTranslation(x: number, y: number, mW: number, mH: number) {
+  console.log(x, y, mW, mH)
+  const dW = window.innerWidth;
+  const dH = window.innerHeight;
+
+  let newX = 0;
+  let newY = 0;
+
+  if (x + mW > dW) newX = -mW - mW - 10;
+  if (y + mH > dH) newY = -mH - mH - 10;
 
   return [newX, newY];
 }

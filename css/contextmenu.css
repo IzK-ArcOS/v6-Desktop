@@ -1,9 +1,10 @@
-div.desktop div.context-menu {
+@import url("./contextmenu/subitems.css");
+
+div.desktop div.context-menu,
+div.desktop div.context-menu div.sub-items {
   position: absolute;
   min-width: 180px;
   min-height: 42px;
-  top: 0px;
-  left: 0px;
   background-color: var(--glass-bg);
   -webkit-backdrop-filter: blur(var(--glass-blur));
   backdrop-filter: blur(var(--glass-blur));
@@ -12,13 +13,17 @@ div.desktop div.context-menu {
   border-radius: var(--win-border-rad);
   box-sizing: border-box;
   padding: 5px;
-  overflow: hidden;
   transition: all 0.3s, top 0s, left 0s !important;
   display: flex;
   flex-direction: column;
+}
+
+div.desktop div.context-menu {
+  top: 0px;
+  left: 0px;
+  transform: scaleY(0%);
   opacity: 0;
   visibility: hidden;
-  transform: scaleY(0%);
 }
 
 div.desktop div.context-menu * {
@@ -35,13 +40,14 @@ div.desktop div.context-menu.show {
   transform: scaleY(100%);
 }
 
-div.desktop div.context-menu::before {
+div.desktop div.context-menu::before,
+div.desktop div.context-menu div.sub-items::before {
   opacity: 0.08;
 }
 
 div.desktop div.context-menu button.menu-item {
   width: 100%;
-  display: flex;
+
   text-align: left;
   border: none;
   background-color: transparent;
@@ -49,12 +55,18 @@ div.desktop div.context-menu button.menu-item {
   border-radius: var(--button-border-rad);
   padding: 5px;
   line-height: 18px;
-  align-items: center;
   transform: unset;
-  gap: 10px;
+  position: relative;
+  z-index: 1;
 }
 
-div.desktop div.context-menu button.menu-item::after {
+div.desktop div.context-menu button.menu-item > div.inner {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+div.desktop div.context-menu button.menu-item > div.inner::after {
   content: "";
   font-family: "Material Icons Round";
   width: 28px;
@@ -64,14 +76,19 @@ div.desktop div.context-menu button.menu-item::after {
   padding-left: 10px;
 }
 
-div.desktop div.context-menu.compact button.menu-item::after {
+div.desktop div.context-menu.compact button.menu-item > div.inner::after {
   font-size: 16px;
   width: 26px;
   height: 16px;
 }
 
-div.desktop div.context-menu button.menu-item.active::after {
+div.desktop div.context-menu button.menu-item.active > div.inner::after {
   content: "check";
+}
+
+div.desktop div.context-menu button.menu-item.subitems > div.inner::after {
+  content: "chevron_right";
+  opacity: 0.3;
 }
 
 div.desktop div.context-menu button.menu-item:hover {
@@ -83,14 +100,16 @@ div.desktop div.context-menu.colored button.menu-item:hover {
   box-shadow: 0 1px 2px 1px #0000001c;
 }
 
-div.desktop div.context-menu.colored button.menu-item:active {
+div.desktop div.context-menu button.menu-item.subitems {
+  opacity: 1;
+  scale: 1;
+  z-index: 1000;
+}
+
+div.desktop div.context-menu.colored button.menu-item:not(.subitems):active {
   background-color: var(--accent-dark);
   color: var(--accent-light);
   box-shadow: none;
-}
-
-div.desktop div.context-menu:not(.compact) button.menu-item div.icon > * {
-  margin-right: 10px;
 }
 
 div.desktop div.context-menu hr {
