@@ -52,7 +52,9 @@
 </script>
 
 {#if $appData && typeof pid == "number" && runtime && $UserDataStore && render}
-  <div class="overlay-shade" data-pid={pid} class:visible class:closing />
+  {#if !$appData.noOverlayShade}
+    <div class="overlay-shade" data-pid={pid} class:visible class:closing />
+  {/if}
   <window
     data-pid={pid}
     id={$appData.id}
