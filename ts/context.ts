@@ -101,25 +101,25 @@ export function getContextEntry(
 
   const menu = Object.entries(app.contextMenu);
 
-  for (let i = 0; i < menu.length; i++) {
-    if (scope.includes(menu[i][0])) return menu[i][1];
+  for (const [key, items] of menu) {
+    if (scope.includes(key)) return items;
   }
 
   return [];
 }
 
 export function getContexMenuScope(e: MouseEvent): HTMLDivElement {
-  const p = e.composedPath() as HTMLDivElement[];
+  const path = e.composedPath() as HTMLDivElement[];
 
-  for (let i = 0; i < p.length; i++) {
-    const tag = p[i].tagName;
+  for (const element of path) {
+    const tag = element.tagName;
 
     if (!tag) continue;
 
-    const contextmenu = p[i].dataset.contextmenu;
+    const contextmenu = element.dataset.contextmenu;
 
     if (validContexMenuTags.includes(tag.toLowerCase()) && contextmenu) {
-      return p[i];
+      return element;
     }
   }
 
@@ -129,8 +129,7 @@ export function getContexMenuScope(e: MouseEvent): HTMLDivElement {
 export function getWindowByEventTarget(target: EventTarget[]): Nullable<HTMLDivElement> {
   Log("Desktop/ts/context", `Getting window by running through EventTarget (size ${target.length})`);
 
-  for (let i = 0; i < target.length; i++) {
-    const element = target[i] as HTMLDivElement;
+  for (const element of target as HTMLDivElement[]) {
     const tagName = element.tagName;
 
     if (!tagName) continue;
