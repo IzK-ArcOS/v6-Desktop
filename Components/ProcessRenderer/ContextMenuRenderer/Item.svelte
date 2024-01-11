@@ -16,6 +16,8 @@
   let showSub = false;
 
   async function trigger() {
+    if (data.subItems) return;
+
     if (data.action) data.action(window, scopeMap, scope);
 
     await sleep(50);
