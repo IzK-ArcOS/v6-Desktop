@@ -1,6 +1,7 @@
 <script lang="ts">
   import { AppRuntime, getAppById } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
+  import { focusedPid } from "$ts/stores/apps";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
@@ -10,7 +11,6 @@
   import { onMount } from "svelte";
   import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
-  import { focusedPid } from "$ts/stores/apps";
 
   export let pid: number;
   export let app: App;

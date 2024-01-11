@@ -1,16 +1,16 @@
 <script lang="ts">
-  import { contextData } from "$state/Desktop/ts/store";
-  import { maxZIndex } from "$ts/stores/apps";
-  import { UserDataStore } from "$ts/stores/user";
-  import { ContextMenuInstance } from "$types/app";
-  import { onMount } from "svelte";
-  import Item from "./ContextMenuRenderer/Item.svelte";
   import {
     assignContextMenuHooks,
     composePosition,
   } from "$state/Desktop/ts/context";
+  import { contextData } from "$state/Desktop/ts/store";
+  import { maxZIndex } from "$ts/stores/apps";
+  import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { Store } from "$ts/writable";
+  import { ContextMenuInstance } from "$types/app";
+  import { onMount } from "svelte";
+  import Item from "./ContextMenuRenderer/Item.svelte";
 
   let data: ContextMenuInstance;
   let menu: HTMLDivElement;

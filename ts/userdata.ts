@@ -1,5 +1,5 @@
 import { ErrorIcon } from "$ts/images/dialog";
-import { getNotificationStore, isNotificationServiceActive, sendNotification } from "$ts/notif";
+import { isNotificationServiceActive, sendNotification } from "$ts/notif";
 import { Process, ProcessHandler } from "$ts/process";
 import { createErrorDialog } from "$ts/process/error";
 import { StartCoreProcesses } from "$ts/process/startup";
