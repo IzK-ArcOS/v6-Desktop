@@ -12,8 +12,8 @@ import { Unsubscriber } from "svelte/store";
 export class UserDataCommitter extends Process {
   unsubscribe: Unsubscriber;
 
-  constructor(handler: ProcessHandler, pid: number, name: string, app: App) {
-    super(handler, pid, name, app);
+  constructor(handler: ProcessHandler, pid: number, name: string, app: App, args: any[]) {
+    super(handler, pid, name, app, args);
   }
 
   start() {

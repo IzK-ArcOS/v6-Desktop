@@ -21,6 +21,7 @@
     class="titlebar"
     class:left={$UserDataStore.sh.window.lefttb}
     class:center={$UserDataStore.sh.window.centertb || center}
+    data-contextmenu="titlebar"
   >
     <div class="title">
       <slot />
