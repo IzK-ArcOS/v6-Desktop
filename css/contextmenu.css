@@ -60,6 +60,10 @@ div.desktop div.context-menu button.menu-item {
   z-index: 1;
 }
 
+div.desktop div.context-menu button.menu-item:disabled {
+  opacity: 0.5;
+}
+
 div.desktop div.context-menu button.menu-item > div.inner {
   display: flex;
   gap: 10px;

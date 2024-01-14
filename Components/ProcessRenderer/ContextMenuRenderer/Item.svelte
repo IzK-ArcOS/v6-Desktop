@@ -15,6 +15,7 @@
   export let x: number;
 
   let active = false;
+  let disabled = false;
   let showSub = false;
 
   async function trigger() {
@@ -29,10 +30,14 @@
     update();
   }
 
-  onMount(() => {
+  onMount(async () => {
     update();
 
     hideSubs.subscribe((v) => v && (showSub = false));
+
+    disabled = data.disabled
+      ? await data.disabled(window, scopeMap, scope)
+      : false;
   });
 
   async function update() {
@@ -66,6 +71,7 @@
     class:subitems={data.subItems && data.subItems.length}
     on:mouseenter={mouseEnter}
     on:mouseleave={mouseLeave}
+    {disabled}
   >
     <div class="inner">
       {#if data.icon}
