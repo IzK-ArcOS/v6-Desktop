@@ -11,6 +11,8 @@
   export let scopeMap: DOMStringMap;
   export let window: App = null;
   export let hideSubs: ReadableStore<boolean>;
+  export let mW: number;
+  export let x: number;
 
   let active = false;
   let showSub = false;
@@ -75,6 +77,6 @@
         {data.caption}
       </span>
     </div>
-    <SubItems {data} {scopeMap} {scope} {window} {showSub} />
+    <SubItems {data} {scopeMap} {scope} {window} {showSub} {mW} {x} />
   </button>
 {/if}

@@ -13,6 +13,11 @@ div.desktop div.context-menu button.menu-item > div.sub-items {
   transition: none !important;
 }
 
+div.desktop div.context-menu button.menu-item > div.sub-items.left {
+  left: unset;
+  right: calc(100%);
+}
+
 div.desktop div.context-menu button.menu-item > div.sub-items.show {
   opacity: 1;
   visibility: visible;

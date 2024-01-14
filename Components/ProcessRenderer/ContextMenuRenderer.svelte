@@ -18,6 +18,7 @@
   let y = 0;
   let visible = false;
   let hideSubs = Store<boolean>(false);
+  let [mW, mH] = [0, 0];
 
   hideSubs.subscribe((v) => {
     v && ($hideSubs = false);
@@ -40,8 +41,8 @@
 
     if (!menu) return;
 
-    const mW = menu.offsetWidth;
-    const mH = menu.offsetHeight;
+    mW = menu.offsetWidth;
+    mH = menu.offsetHeight;
 
     [x, y] = composePosition(v.x, v.y, mW, mH);
 
@@ -67,6 +68,8 @@
         scopeMap={data.scopeMap}
         data={item}
         bind:hideSubs
+        {mW}
+        {x}
       />
     {/each}
   {/if}
