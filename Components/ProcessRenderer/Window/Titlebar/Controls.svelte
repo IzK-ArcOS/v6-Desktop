@@ -16,7 +16,7 @@
   }
 
   function close() {
-    handler.kill(pid);
+    handler.kill(pid, true);
   }
 </script>
 
