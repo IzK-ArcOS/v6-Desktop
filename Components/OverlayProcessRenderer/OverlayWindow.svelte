@@ -61,7 +61,13 @@
 
 {#if $appData && typeof pid == "number" && runtime && $UserDataStore && render}
   {#if !$appData.noOverlayShade}
-    <div class="overlay-shade" data-pid={pid} class:visible class:closing />
+    <div
+      class="overlay-shade"
+      data-pid={pid}
+      class:visible
+      class:closing
+      id="shade-{$appData.id}"
+    />
   {/if}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <window

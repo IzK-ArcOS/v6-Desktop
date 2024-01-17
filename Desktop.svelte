@@ -9,6 +9,7 @@
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
   import "./css/main.css";
+  import { getWallpaper } from "$ts/wallpaper";
 
   let render = false;
   let show = false;
@@ -29,8 +30,11 @@
     show = true;
   });
 
-  UserDataStore.subscribe((v) => {
+  UserDataStore.subscribe(async (v) => {
     if (!v) return;
+
+    const wallpaper = $UserDataStore.sh.desktop.wallpaper;
+    const url = (await getWallpaper(wallpaper)).url;
 
     accent = $UserDataStore.sh.desktop.accent || "70D6FF";
     theme = $UserDataStore.sh.desktop.theme || "dark";
@@ -43,7 +47,8 @@
     --accent-dark: ${darkenColor(accent, 75)} !important;
     --accent-darkest: ${darkenColor(accent, 85)} !important;
     --accent-light-transparent: ${lightenColor(accent)}77 !important;
-    --accent-light-invert: ${invertColor(lightenColor(accent))} !important;`;
+    --accent-light-invert: ${invertColor(lightenColor(accent))} !important;
+    --wallpaper: url(${url});`;
   });
 </script>
 
