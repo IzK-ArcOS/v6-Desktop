@@ -17,9 +17,8 @@
 
   hideSubs.subscribe((v) => {
     if (!v) return;
-    $hideSubs = false;
 
-    console.log(screen.availWidth - 300 < x + mW);
+    $hideSubs = false;
   });
 </script>
 

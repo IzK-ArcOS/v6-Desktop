@@ -6,8 +6,6 @@
 
   onMount(() => {
     current = tabs.length ? tabs[0] : "";
-
-    console.log(current);
   });
 </script>
 

@@ -75,7 +75,6 @@ export function composePosition(
 }
 
 export function composeTranslation(x: number, y: number, mW: number, mH: number) {
-  console.log(x, y, mW, mH)
   const dW = window.innerWidth;
   const dH = window.innerHeight;
 
