@@ -10,6 +10,8 @@
   import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
   import "./css/main.css";
   import { getWallpaper } from "$ts/wallpaper";
+  import { startInitialServices } from "$ts/service/interact";
+  import { GlobalDispatch } from "$ts/process/dispatch/global";
 
   let render = false;
   let show = false;
@@ -20,6 +22,7 @@
   onMount(async () => {
     await loadBuiltinApps();
     await StartCoreProcesses();
+    await startInitialServices();
 
     ArcSoundBus.playSound("arcos.system.logon");
 
@@ -50,6 +53,11 @@
     --accent-light-invert: ${invertColor(lightenColor(accent))} !important;
     --wallpaper: url(${url});`;
   });
+
+  GlobalDispatch.subscribe("desktop-hide", () => {
+    show = false;
+  });
+  GlobalDispatch.subscribe("desktop-show", () => (show = true));
 </script>
 
 {#if $UserDataStore && render}
