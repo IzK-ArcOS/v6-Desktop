@@ -1,6 +1,7 @@
 import { Log } from "$ts/console";
 import { GlobalDispatch } from "$ts/process/dispatch/global";
 import { killAllApps } from "$ts/process/kill";
+import { LogoffToken } from "$ts/server/user/logoff";
 import { getAllServices, stopService } from "$ts/service/interact";
 import { PrimaryState } from "$ts/states";
 import { appLibrary } from "$ts/stores/apps";
@@ -9,7 +10,7 @@ import { UserCache, UserDataStore, UserName, UserToken, defaultUserData } from "
 import { sleep } from "$ts/util";
 
 export async function logout() {
-  Log("Desktop/ts/logout", `Resetting data to default stores and logging out ${UserName.get()}...`);
+  Log("Desktop/ts/power", `Resetting data to default stores and logging out ${UserName.get()}...`);
 
   GlobalDispatch.dispatch("desktop-hide")
 
@@ -24,10 +25,32 @@ export async function logout() {
     await stopService(id, true);
   }
 
-  UserToken.set(null);
+  await LogoffToken();
   UserDataStore.set(defaultUserData);
   localStorage.removeItem("arcos-remembered-token");
   UserCache.clear();
   ProcessStack.processes.set(new Map([]))
   PrimaryState.navigate("logoff");
+}
+
+export async function shutdown() {
+  GlobalDispatch.dispatch("desktop-hide")
+
+  await sleep(400);
+  await LogoffToken();
+
+  Log("Desktop/ts/power", `Shutting down from ${UserName.get()}...`);
+
+  PrimaryState.navigate("shutdown");
+}
+
+export async function restart() {
+  GlobalDispatch.dispatch("desktop-hide")
+
+  await sleep(400);
+  await LogoffToken();
+
+  Log("Desktop/ts/power", `Restarting from ${UserName.get()}...`);
+
+  PrimaryState.navigate("restart");
 }
