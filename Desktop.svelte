@@ -37,7 +37,9 @@
     if (!v) return;
 
     const wallpaper = $UserDataStore.sh.desktop.wallpaper;
-    const url = (await getWallpaper(wallpaper)).url;
+    const wallpaperData = await getWallpaper(wallpaper);
+    const bgUrl = wallpaperData.url;
+    const bgThumb = wallpaperData.thumb;
 
     accent = $UserDataStore.sh.desktop.accent || "70D6FF";
     theme = $UserDataStore.sh.desktop.theme || "dark";
@@ -51,7 +53,8 @@
     --accent-darkest: ${darkenColor(accent, 85)} !important;
     --accent-light-transparent: ${lightenColor(accent)}77 !important;
     --accent-light-invert: ${invertColor(lightenColor(accent))} !important;
-    --wallpaper: url(${url});`;
+    --wallpaper: url(${bgUrl});
+    --wallpaper-thumb: url(${bgThumb});`;
   });
 
   GlobalDispatch.subscribe("desktop-hide", () => {

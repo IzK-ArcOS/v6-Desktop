@@ -6,16 +6,26 @@ import { ContextMenuInstance, ContextMenuItem } from "$types/app";
 import { Nullable } from "$types/common";
 import { contextData, validContexMenuTags } from "./store";
 
+/**
+ * Spawns a new context menu based on the data
+ * @param data The data to use for the menu
+ */
 export function createContextMenu(data: ContextMenuInstance) {
   Log("Desktop/ts/context", `Spawning Context Menu with ${data.items.length} items at ${data.x}, ${data.y}`);
 
   contextData.set(data)
 }
 
+/**
+ * Closes the currently opened menu
+ */
 export function closeContextMenu() {
   contextData.set(null);
 }
 
+/**
+ * Assigns the click event to close and spawn the context menu.
+ */
 export function assignContextMenuHooks() {
   Log("Desktop/ts/context", "Assigning context menu hooks");
 
@@ -30,6 +40,10 @@ export function assignContextMenuHooks() {
   document.addEventListener("contextmenu", handleContext);
 }
 
+/**
+ * Handles right-click event to display a context menu based on the parsed data.
+ * @param e The mouse event to use
+ */
 export async function handleContext(e: MouseEvent) {
   const window = getWindowByEventTarget(e.composedPath());
   const scope = getContexMenuScope(e);
@@ -54,6 +68,14 @@ export async function handleContext(e: MouseEvent) {
   })
 }
 
+/**
+ * Calculates the menu position to make sure it doesn't go off-screen
+ * @param x The X position of the mouse
+ * @param y The Y position of the mouse
+ * @param mW The Width of the menu
+ * @param mH The Height of the menu
+ * @returns The new menu position
+ */
 export function composePosition(
   x: number,
   y: number,
@@ -74,20 +96,12 @@ export function composePosition(
   return [newX, newY];
 }
 
-export function composeTranslation(x: number, y: number, mW: number, mH: number) {
-  const dW = window.innerWidth;
-  const dH = window.innerHeight;
-
-  let newX = 0;
-  let newY = 0;
-
-  if (x + mW > dW) newX = -mW - mW - 10;
-  if (y + mH > dH) newY = -mH - mH - 10;
-
-  return [newX, newY];
-}
-
-
+/**
+ * Gets the menu items of the given scope in the specified app
+ * @param id The App ID to pull the menu items from
+ * @param scope The Context Menu scope
+ * @returns The menu items of the given scope
+ */
 export function getContextEntry(
   id: string,
   scope: string
@@ -107,6 +121,11 @@ export function getContextEntry(
   return [];
 }
 
+/**
+ * Calculates the Context Menu Scope by walking through the click's path
+ * @param e The right-click event
+ * @returns The scope or nothing
+ */
 export function getContexMenuScope(e: MouseEvent): HTMLDivElement {
   const path = e.composedPath() as HTMLDivElement[];
 
@@ -125,6 +144,11 @@ export function getContexMenuScope(e: MouseEvent): HTMLDivElement {
   return null;
 }
 
+/**
+ * Gets the underlying window by walking through the right-click's event target
+ * @param target The event target array to walk through
+ * @returns The Window it found
+ */
 export function getWindowByEventTarget(target: EventTarget[]): Nullable<HTMLDivElement> {
   Log("Desktop/ts/context", `Getting window by running through EventTarget (size ${target.length})`);
 
