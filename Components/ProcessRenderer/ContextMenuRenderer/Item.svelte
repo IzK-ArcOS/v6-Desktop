@@ -38,6 +38,8 @@
     disabled = data.disabled
       ? await data.disabled(window, scopeMap, scope)
       : false;
+
+    console.log(disabled);
   });
 
   async function update() {
@@ -83,6 +85,8 @@
         {data.caption}
       </span>
     </div>
-    <SubItems {data} {scopeMap} {scope} {window} {showSub} {mW} {x} />
+    {#if !disabled}
+      <SubItems {data} {scopeMap} {scope} {window} {showSub} {mW} {x} />
+    {/if}
   </button>
 {/if}

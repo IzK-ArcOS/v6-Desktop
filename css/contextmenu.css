@@ -61,7 +61,7 @@ div.desktop div.context-menu button.menu-item {
 }
 
 div.desktop div.context-menu button.menu-item:disabled {
-  opacity: 0.5;
+  opacity: 0.5 !important;
 }
 
 div.desktop div.context-menu button.menu-item > div.inner {

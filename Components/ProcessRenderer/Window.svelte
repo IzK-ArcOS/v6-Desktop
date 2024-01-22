@@ -84,14 +84,19 @@
     bind:this={window}
     data-pid={pid}
     id={$app.id}
-    class="taskbar-bounds tb-{$UserDataStore.sh.taskbar.pos} shell-colored"
+    class="
+      taskbar-bounds
+      tb-{$UserDataStore.sh.taskbar.pos}
+      {$app.state.snapState || ''}
+      shell-colored"
     class:minimized={$app.state.minimized}
-    class:maximized={$app.state.maximized}
+    class:maximized={$app.state.maximized || $app.state.snapping}
     class:headless={$app.state.headless}
     class:fullscreen={$app.state.fullscreen}
     class:resizable={$app.state.resizable}
     class:core={$app.metadata.core}
     class:glass={$app.glass}
+    class:snapped={$app.state.snapping}
     class:visible
     class:focused={$focusedPid == pid}
     class:docked={$UserDataStore.sh.taskbar.docked}

@@ -1,6 +1,9 @@
 div.process-renderer {
   pointer-events: none;
   overflow: hidden;
+  display: grid;
+  grid-template-rows: [top] 50% [bottom] 50%;
+  grid-template-columns: [left] 50% [right] 50%;
 }
 
 div.process-renderer > * {
