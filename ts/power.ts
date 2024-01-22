@@ -6,7 +6,7 @@ import { getAllServices, stopService } from "$ts/service/interact";
 import { PrimaryState } from "$ts/states";
 import { appLibrary } from "$ts/stores/apps";
 import { ProcessStack } from "$ts/stores/process";
-import { UserCache, UserDataStore, UserName, UserToken, defaultUserData } from "$ts/stores/user";
+import { UserCache, UserDataStore, UserName, defaultUserData } from "$ts/stores/user";
 import { sleep } from "$ts/util";
 
 export async function logout() {
