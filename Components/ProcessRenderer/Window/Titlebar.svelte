@@ -5,6 +5,7 @@
   import { UserDataStore, UserName } from "$ts/stores/user";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
+  import AltMenu from "./Body/AltMenu.svelte";
   import Controls from "./Titlebar/Controls.svelte";
 
   export let app: ReadableStore<App>;
@@ -37,6 +38,7 @@
           {/if}
         </span>
       {/if}
+      <AltMenu {app} />
     </div>
     <div class="blank" />
     <Controls {app} {pid} {handler} />

@@ -32,11 +32,8 @@
     if (!v) return (visible = false);
 
     data = null;
-
     await sleep();
-
     data = v;
-
     await sleep();
 
     if (!menu) return;

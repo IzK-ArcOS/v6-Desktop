@@ -10,10 +10,16 @@ import { contextData, validContexMenuTags } from "./store";
  * Spawns a new context menu based on the data
  * @param data The data to use for the menu
  */
-export function createContextMenu(data: ContextMenuInstance) {
+
+let CLICKLOCKED = false;
+
+export async function createContextMenu(data: ContextMenuInstance) {
   Log("Desktop/ts/context", `Spawning Context Menu with ${data.items.length} items at ${data.x}, ${data.y}`);
 
+  CLICKLOCKED = true;
   contextData.set(data)
+  await sleep(10)
+  CLICKLOCKED = false;
 }
 
 /**
@@ -30,6 +36,8 @@ export function assignContextMenuHooks() {
   Log("Desktop/ts/context", "Assigning context menu hooks");
 
   document.addEventListener("click", (e) => {
+    if (CLICKLOCKED) return;
+
     const el = document.querySelector(".desktop > .context-menu")
 
     if (!el || e.button != 0 || e.composedPath().includes(el)) return;

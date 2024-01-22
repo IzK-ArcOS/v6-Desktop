@@ -3,6 +3,7 @@
   import { UserDataStore } from "$ts/stores/user";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
+  import AltMenu from "./Body/AltMenu.svelte";
 
   export let visible: boolean;
   export let app: ReadableStore<App>;
