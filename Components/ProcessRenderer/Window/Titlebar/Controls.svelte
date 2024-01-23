@@ -30,7 +30,7 @@
   </button>
   <button
     class="max material-icons-round titlebar-control reset"
-    disabled={!$app.controls.maximize}
+    disabled={!$app.controls.maximize || $app.state.snapping}
     on:click={maximize}
   >
     crop_square
