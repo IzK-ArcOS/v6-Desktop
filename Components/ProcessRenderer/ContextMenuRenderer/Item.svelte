@@ -38,8 +38,6 @@
     disabled = data.disabled
       ? await data.disabled(window, scopeMap, scope)
       : false;
-
-    console.log(disabled);
   });
 
   async function update() {
