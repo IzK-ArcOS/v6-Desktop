@@ -41,6 +41,9 @@
     const data = getAppById(id) || proc.app;
 
     app.set(data);
+
+    proc.setMutator(app);
+
     $pos = { ...$app.pos };
     style = generateCSS($app);
     runtime = new $app.runtime($app, app, handler.getProcess(pid));

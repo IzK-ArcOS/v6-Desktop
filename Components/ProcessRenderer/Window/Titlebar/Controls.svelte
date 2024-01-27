@@ -18,9 +18,21 @@
   function close() {
     handler.kill(pid, true);
   }
+
+  function unsnap() {
+    $app.state.snapping = false;
+  }
 </script>
 
 <div class="controls">
+  {#if $app.controls.maximize && $app.state.snapping}
+    <button
+      class="unsnap material-icons-round titlebar-control reset"
+      on:click={unsnap}
+    >
+      south_west
+    </button>
+  {/if}
   <button
     class="min material-icons-round titlebar-control reset"
     disabled={!$app.controls.minimize}

@@ -32,6 +32,8 @@
     const proc = ProcessStack.getProcess(pid);
     const data = getAppById(app.id, proc.app);
 
+    proc.setMutator(appData);
+
     appData.set(data);
     style = generateCSS(app);
     runtime = new $appData.runtime(
