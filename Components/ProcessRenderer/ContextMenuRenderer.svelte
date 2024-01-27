@@ -29,7 +29,13 @@
   });
 
   contextData.subscribe(async (v) => {
-    if (!v) return (visible = false);
+    const current = visible;
+
+    visible = false;
+
+    await sleep(data && v && current ? 200 : 0);
+
+    if (!v) return;
 
     data = null;
     await sleep();
