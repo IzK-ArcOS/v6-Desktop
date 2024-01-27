@@ -16,6 +16,7 @@ div.desktop div.context-menu div.sub-items {
   transition: all 0.3s, top 0s, left 0s;
   display: flex;
   flex-direction: column;
+  transform-origin: top center;
 }
 
 div.desktop div.context-menu {
