@@ -5,7 +5,6 @@
 
   export let pid: number;
   export let app: ReadableStore<App>;
-  export let handler = ProcessStack;
 
   function minimize() {
     $app.state.minimized = !$app.state.minimized;
@@ -16,7 +15,7 @@
   }
 
   function close() {
-    handler.kill(pid, true);
+    ProcessStack.kill(pid, true);
   }
 
   function unsnap() {

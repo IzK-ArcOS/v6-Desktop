@@ -2,14 +2,12 @@
   import "$css/desktop/window.css";
   import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
-  import { getAppById } from "$ts/apps/utils";
-  import { ProcessHandler } from "$ts/process";
   import { focusedPid, maxZIndex } from "$ts/stores/apps";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { Store } from "$ts/writable";
-  import { App, Coordinate } from "$types/app";
+  import { Coordinate } from "$types/app";
   import { ReadableStore } from "$types/writable";
   import { DragEventData, draggable } from "@neodrag/svelte";
   import { onMount } from "svelte";
@@ -19,11 +17,8 @@
   import Titlebar from "./Window/Titlebar.svelte";
 
   export let pid: number;
-  export let id: string;
-  export let handler: ProcessHandler = ProcessStack;
 
   let closing = false;
-  let app: ReadableStore<App> = Store(null);
   let style = "";
   let render = false;
   let visible = false;
@@ -31,22 +26,18 @@
   let window: HTMLDivElement;
   let pos: ReadableStore<Coordinate> = Store<Coordinate>({ x: 0, y: 0 });
   let inited = false;
+  let proc = ProcessStack.getProcess(pid);
+
+  const { mutator: app } = proc;
 
   onMount(async () => {
     render = true;
 
-    await sleep();
-
-    const proc = handler.getProcess(pid);
-    const data = getAppById(id) || proc.app;
-
-    app.set(data);
-
-    proc.setMutator(app);
+    await sleep(10);
 
     $pos = { ...$app.pos };
     style = generateCSS($app);
-    runtime = new $app.runtime($app, app, handler.getProcess(pid));
+    runtime = new $app.runtime($app, app, proc);
 
     await sleep(100);
 
@@ -55,7 +46,7 @@
 
     focusedPid.set(pid);
 
-    handler.closedPids.subscribe((v) => (closing = v.includes(pid)));
+    ProcessStack.closedPids.subscribe((v) => (closing = v.includes(pid)));
   });
 
   function handleMouse() {
@@ -120,7 +111,7 @@
     }}
   >
     {#if !$app.state.headless}
-      <Titlebar {app} {pid} {handler} />
+      <Titlebar {app} {pid} />
     {/if}
     <Body {app} {pid} {visible} {runtime} />
     <OverlayProcessRenderer {pid} />

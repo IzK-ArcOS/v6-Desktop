@@ -19,7 +19,7 @@
     {#if proc._disposed}
       <div class="disposed pid-{pid}" />
     {:else if proc.app && !proc.parentPid}
-      <Window id={proc.app.id} {pid} {handler} />
+      <Window {pid} />
     {/if}
   {/each}
 </div>

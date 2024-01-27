@@ -1,7 +1,6 @@
 <script lang="ts">
   import { ArcOSVersion } from "$ts/env";
   import { ARCOS_MODE } from "$ts/metadata";
-  import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore, UserName } from "$ts/stores/user";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
@@ -13,7 +12,8 @@
   export let showIcon = true;
   export let showTitle = true;
   export let center = false;
-  export let handler = ProcessStack;
+
+  $: app;
 </script>
 
 {#if !$app.metadata.core}
@@ -41,6 +41,6 @@
       <AltMenu {app} />
     </div>
     <div class="blank" />
-    <Controls {app} {pid} {handler} />
+    <Controls {app} {pid} />
   </div>
 {/if}

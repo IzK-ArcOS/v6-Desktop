@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { AppRuntime, getAppById } from "$ts/apps";
+  import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
   import { focusedPid } from "$ts/stores/apps";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
-  import { Store } from "$ts/writable";
   import { App } from "$types/app";
-  import { ReadableStore } from "$types/writable";
   import { onMount } from "svelte";
   import OverlayProcessRenderer from "../OverlayProcessRenderer.svelte";
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
@@ -15,12 +13,14 @@
   export let pid: number;
   export let app: App;
 
-  let appData: ReadableStore<App> = Store(null);
   let render = false;
   let visible = false;
   let closing = false;
   let style = "";
   let runtime: AppRuntime;
+
+  const proc = ProcessStack.getProcess(pid);
+  const { mutator: appData } = proc;
 
   ProcessStack.closedPids.subscribe((v) => (closing = v.includes(pid)));
 
@@ -29,12 +29,6 @@
 
     await sleep();
 
-    const proc = ProcessStack.getProcess(pid);
-    const data = getAppById(app.id, proc.app);
-
-    proc.setMutator(appData);
-
-    appData.set(data);
     style = generateCSS(app);
     runtime = new $appData.runtime(
       $appData,
