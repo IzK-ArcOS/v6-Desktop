@@ -11,6 +11,7 @@
   import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
   import "./css/main.css";
   import { DesktopStyle } from "./ts/styles";
+  import { preventAnchorRedirects } from "$ts/anchor";
 
   let render = false;
   let show = false;
@@ -20,6 +21,7 @@
     await loadBuiltinApps();
     await StartCoreProcesses();
     await startInitialServices();
+    preventAnchorRedirects();
 
     ArcSoundBus.playSound("arcos.system.logon");
 
