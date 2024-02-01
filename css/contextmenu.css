@@ -147,6 +147,19 @@ div.desktop div.context-menu.compact button.menu-item .icon {
   font-size: 16px;
 }
 
+div.desktop div.context-menu button.menu-item span.accelerator {
+  margin-left: 30px;
+  margin-right: 5px;
+  flex-grow: 1;
+  text-align: right;
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+div.desktop div.context-menu button.menu-item.accelerator div.inner::after {
+  display: none !important;
+}
+
 div.desktop div.context-menu.compact hr {
   margin: 3px 5px;
 }

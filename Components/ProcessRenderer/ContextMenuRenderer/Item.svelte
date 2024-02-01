@@ -69,6 +69,7 @@
     on:click={trigger}
     class:active={active && !data.subItems}
     class:subitems={data.subItems && data.subItems.length}
+    class:accelerator={data.accelerator}
     on:mouseenter={mouseEnter}
     on:mouseleave={mouseLeave}
     {disabled}
@@ -78,10 +79,15 @@
         <span class="icon material-icons-round">{data.icon}</span>
       {:else if data.image}
         <img class="icon" src={data.image} alt={data.caption} />
+      {:else}
+        <span class="icon"></span>
       {/if}
       <span>
         {data.caption}
       </span>
+      {#if data.accelerator}
+        <span class="accelerator">{data.accelerator}</span>
+      {/if}
     </div>
     {#if !disabled}
       <SubItems {data} {scopeMap} {scope} {window} {showSub} {mW} {x} />
