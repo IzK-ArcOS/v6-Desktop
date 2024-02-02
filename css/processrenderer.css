@@ -6,6 +6,9 @@ div.process-renderer {
   grid-template-columns: [left] 50% [right] 50%;
 }
 
+div.process-renderer div.disposed {
+  display: none;
+}
 div.process-renderer > * {
   pointer-events: initial;
 }
