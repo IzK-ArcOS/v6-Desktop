@@ -27,9 +27,11 @@
 
     render = true;
 
-    await sleep(500);
+    await sleep(200);
 
     show = true;
+
+    console.log(`LOADED DESKTOP AT `, new Date().getTime());
   });
 
   GlobalDispatch.subscribe("desktop-hide", () => {
