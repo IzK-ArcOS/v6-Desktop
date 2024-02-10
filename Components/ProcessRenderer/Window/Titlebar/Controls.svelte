@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { GetHelp } from "$ts/help";
   import { ProcessStack } from "$ts/stores/process";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
@@ -21,9 +22,21 @@
   function unsnap() {
     $app.state.snapping = false;
   }
+
+  function help() {
+    GetHelp($app.helpArticle);
+  }
 </script>
 
 <div class="controls">
+  {#if $app.helpArticle}
+    <button
+      class="help material-icons-round titlebar-control reset"
+      on:click={help}
+    >
+      question_mark
+    </button>
+  {/if}
   {#if $app.controls.maximize && $app.state.snapping}
     <button
       class="unsnap material-icons-round titlebar-control reset"
