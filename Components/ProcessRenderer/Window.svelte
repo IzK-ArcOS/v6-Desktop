@@ -3,7 +3,6 @@
   import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
   import { focusedPid, maxZIndex } from "$ts/stores/apps";
-  import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { Store } from "$ts/writable";
@@ -15,8 +14,10 @@
   import SubProcessRenderer from "../SubProcessRenderer.svelte";
   import Body from "./Window/Body.svelte";
   import Titlebar from "./Window/Titlebar.svelte";
+  import { ProcessHandler } from "$ts/process";
 
   export let pid: number;
+  export let handler: ProcessHandler;
 
   let closing = false;
   let style = "";
@@ -26,7 +27,7 @@
   let window: HTMLDivElement;
   let pos: ReadableStore<Coordinate> = Store<Coordinate>({ x: 0, y: 0 });
   let inited = false;
-  let proc = ProcessStack.getProcess(pid);
+  let proc = handler.getProcess(pid);
 
   const { mutator: app } = proc;
 
@@ -46,7 +47,7 @@
 
     focusedPid.set(pid);
 
-    ProcessStack.closedPids.subscribe((v) => (closing = v.includes(pid)));
+    handler.closedPids.subscribe((v) => (closing = v.includes(pid)));
   });
 
   function handleMouse() {
