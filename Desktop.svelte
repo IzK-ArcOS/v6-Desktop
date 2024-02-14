@@ -30,8 +30,6 @@
     await sleep(200);
 
     show = true;
-
-    console.log(`LOADED DESKTOP AT `, new Date().getTime());
   });
 
   GlobalDispatch.subscribe("desktop-hide", () => {
@@ -41,17 +39,7 @@
 </script>
 
 {#if $UserDataStore && render}
-  <div
-    class="desktop theme-{$theme} cursor-{$UserDataStore.sh.desktop
-      .noCustomCursor
-      ? ''
-      : 'custom'}"
-    style={$style}
-    class:show
-    class:sharp={$UserDataStore.sh.desktop.sharp}
-    class:noani={!$UserDataStore.sh.anim}
-    class:noglass={$UserDataStore.sh.noGlass}
-  >
+  <div class="desktop theme-{$theme} cursor-{$UserDataStore.sh.desktop.noCustomCursor ? '' : 'custom'}" style={$style} class:show class:sharp={$UserDataStore.sh.desktop.sharp} class:noani={!$UserDataStore.sh.anim} class:noglass={$UserDataStore.sh.noGlass}>
     <ProcessRenderer />
     <ContextMenuRenderer />
   </div>
