@@ -15,9 +15,10 @@
   import Body from "./Window/Body.svelte";
   import Titlebar from "./Window/Titlebar.svelte";
   import { ProcessHandler } from "$ts/process";
+  import { ProcessStack } from "$ts/stores/process";
 
   export let pid: number;
-  export let handler: ProcessHandler;
+  export let handler: ProcessHandler = ProcessStack;
 
   let closing = false;
   let style = "";
@@ -96,9 +97,7 @@
     class:focused={$focusedPid == pid}
     class:docked={$UserDataStore.sh.taskbar.docked}
     class:bigtb={$UserDataStore.sh.window.bigtb}
-    class:colored={$UserDataStore.sh.taskbar.colored &&
-      !$app.metadata.core &&
-      $focusedPid == pid}
+    class:colored={$UserDataStore.sh.taskbar.colored && !$app.metadata.core && $focusedPid == pid}
     class:closing
     {style}
     on:mousedown={handleMouse}
