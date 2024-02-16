@@ -25,20 +25,21 @@
     data-contextmenu="titlebar"
   >
     <div class="title">
-      <slot />
-
-      {#if showIcon}
-        <img src={$app.metadata.icon} alt={$app.id} />
-      {/if}
-      {#if showTitle}
-        <span class="title-text">
-          {$app.metadata.name}
-          {#if ARCOS_MODE == "development"}
-            - {$app.metadata.version} - {$UserName} - {pid} [v{ArcOSVersion}-{ARCOS_MODE}]
-          {/if}
-        </span>
-      {/if}
+      <span class="title-wrapper">
+        {#if showIcon}
+          <img src={$app.metadata.icon} alt={$app.id} />
+        {/if}
+        {#if showTitle}
+          <span class="title-text">
+            {$app.metadata.name}
+            {#if ARCOS_MODE == "development"}
+              - {$app.metadata.version} - {$UserName} - {pid} [v{ArcOSVersion}-{ARCOS_MODE}]
+            {/if}
+          </span>
+        {/if}
+      </span>
       <AltMenu {app} />
+      <slot />
     </div>
     <div class="blank" />
     <Controls {app} {pid} />
