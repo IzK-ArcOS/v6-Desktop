@@ -1,7 +1,7 @@
 <script lang="ts">
   import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
-  import { focusedPid } from "$ts/stores/apps";
+  import { focusedPid } from "$ts/stores/apps/focus";
   import { ProcessStack } from "$ts/stores/process";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
@@ -30,11 +30,7 @@
     await sleep();
 
     style = generateCSS(app);
-    runtime = new $appData.runtime(
-      $appData,
-      appData,
-      ProcessStack.getProcess(pid)
-    );
+    runtime = new $appData.runtime($appData, appData, ProcessStack.getProcess(pid));
 
     await sleep(100);
 
@@ -80,12 +76,7 @@
   >
     <div class="body">
       {#if visible}
-        <svelte:component
-          this={$appData.content}
-          {pid}
-          app={$appData}
-          {runtime}
-        />
+        <svelte:component this={$appData.content} {pid} app={$appData} {runtime} />
       {/if}
     </div>
     <OverlayProcessRenderer {pid} />

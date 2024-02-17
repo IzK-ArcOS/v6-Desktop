@@ -2,7 +2,7 @@
   import "$css/desktop/window.css";
   import { AppRuntime } from "$ts/apps";
   import { generateCSS } from "$ts/apps/css";
-  import { focusedPid, maxZIndex } from "$ts/stores/apps";
+  import { focusedPid } from "$ts/stores/apps/focus";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { Store } from "$ts/writable";
@@ -16,6 +16,7 @@
   import Titlebar from "./Window/Titlebar.svelte";
   import { ProcessHandler } from "$ts/process";
   import { ProcessStack } from "$ts/stores/process";
+  import { maxZIndex } from "$ts/stores/apps";
 
   export let pid: number;
   export let handler: ProcessHandler = ProcessStack;
