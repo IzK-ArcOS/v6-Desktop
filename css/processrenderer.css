@@ -12,3 +12,7 @@ div.process-renderer div.disposed {
 div.process-renderer > * {
   pointer-events: initial;
 }
+
+div.process-renderer.subprocesses {
+  position: fixed;
+}
