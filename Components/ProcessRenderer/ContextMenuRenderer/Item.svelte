@@ -35,9 +35,7 @@
 
     hideSubs.subscribe((v) => v && (showSub = false));
 
-    disabled = data.disabled
-      ? await data.disabled(window, scopeMap, scope)
-      : false;
+    disabled = data.disabled ? await data.disabled(window, scopeMap, scope) : false;
   });
 
   async function update() {

@@ -14,11 +14,14 @@ import { contextData, validContexMenuTags } from "./store";
 let CLICKLOCKED = false;
 
 export async function createContextMenu(data: ContextMenuInstance) {
-  Log("Desktop/ts/context", `Spawning Context Menu with ${data.items.length} items at ${data.x}, ${data.y}`);
+  Log(
+    "Desktop/ts/context",
+    `Spawning Context Menu with ${data.items.length} items at ${data.x}, ${data.y}`
+  );
 
   CLICKLOCKED = true;
-  contextData.set(data)
-  await sleep(10)
+  contextData.set(data);
+  await sleep(10);
   CLICKLOCKED = false;
 }
 
@@ -38,7 +41,7 @@ export function assignContextMenuHooks() {
   document.addEventListener("click", (e) => {
     if (CLICKLOCKED) return;
 
-    const el = document.querySelector(".desktop > .context-menu")
+    const el = document.querySelector(".desktop > .context-menu");
 
     if (!el || e.button != 0 || e.composedPath().includes(el)) return;
 
@@ -58,7 +61,7 @@ export async function handleContext(e: MouseEvent) {
 
   if (!window || !scope) return closeContextMenu();
 
-  const id = window.id
+  const id = window.id;
   const appData = getAppById(id);
 
   if (!appData) return closeContextMenu();
@@ -72,8 +75,13 @@ export async function handleContext(e: MouseEvent) {
   const items = getContextEntry(id, contextmenu);
 
   createContextMenu({
-    x: e.clientX, y: e.clientY, items, scope: contextmenu, scopeMap: scope.dataset, app: appData
-  })
+    x: e.clientX,
+    y: e.clientY,
+    items,
+    scope: contextmenu,
+    scopeMap: scope.dataset,
+    app: appData,
+  });
 }
 
 /**
@@ -84,12 +92,7 @@ export async function handleContext(e: MouseEvent) {
  * @param mH The Height of the menu
  * @returns The new menu position
  */
-export function composePosition(
-  x: number,
-  y: number,
-  mW: number,
-  mH: number
-): [number, number] {
+export function composePosition(x: number, y: number, mW: number, mH: number): [number, number] {
   const dW = window.innerWidth;
   const dH = window.innerHeight;
 
@@ -110,10 +113,7 @@ export function composePosition(
  * @param scope The Context Menu scope
  * @returns The menu items of the given scope
  */
-export function getContextEntry(
-  id: string,
-  scope: string
-): ContextMenuItem[] {
+export function getContextEntry(id: string, scope: string): ContextMenuItem[] {
   Log("Desktop/ts/context", `Getting Context Entries of ${id} in scope ${scope}`);
 
   const app = getAppById(id);
@@ -158,7 +158,10 @@ export function getContexMenuScope(e: MouseEvent): HTMLDivElement {
  * @returns The Window it found
  */
 export function getWindowByEventTarget(target: EventTarget[]): Nullable<HTMLDivElement> {
-  Log("Desktop/ts/context", `Getting window by running through EventTarget (size ${target.length})`);
+  Log(
+    "Desktop/ts/context",
+    `Getting window by running through EventTarget (size ${target.length})`
+  );
 
   for (const element of target as HTMLDivElement[]) {
     const tagName = element.tagName;

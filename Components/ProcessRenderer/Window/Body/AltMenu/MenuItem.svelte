@@ -8,8 +8,7 @@
   let button: HTMLButtonElement;
 
   async function action() {
-    if (!menu.subItems && menu.action)
-      return await menu.action(app, null, null);
+    if (!menu.subItems && menu.action) return await menu.action(app, null, null);
 
     const rect = button.getBoundingClientRect();
 

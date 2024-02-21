@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { preventAnchorRedirects } from "$ts/anchor";
   import { loadBuiltinApps } from "$ts/apps/builtins";
   import { GlobalDispatch } from "$ts/process/dispatch/global";
   import { StartCoreProcesses } from "$ts/process/startup";
@@ -11,7 +12,6 @@
   import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
   import "./css/main.css";
   import { DesktopStyle } from "./ts/styles";
-  import { preventAnchorRedirects } from "$ts/anchor";
 
   let render = false;
   let show = false;
@@ -39,7 +39,14 @@
 </script>
 
 {#if $UserDataStore && render}
-  <div class="desktop theme-{$theme} cursor-{$UserDataStore.sh.desktop.noCustomCursor ? '' : 'custom'}" style={$style} class:show class:sharp={$UserDataStore.sh.desktop.sharp} class:noani={!$UserDataStore.sh.anim} class:noglass={$UserDataStore.sh.noGlass}>
+  <div
+    class="desktop theme-{$theme} cursor-{$UserDataStore.sh.desktop.noCustomCursor ? '' : 'custom'}"
+    style={$style}
+    class:show
+    class:sharp={$UserDataStore.sh.desktop.sharp}
+    class:noani={!$UserDataStore.sh.anim}
+    class:noglass={$UserDataStore.sh.noGlass}
+  >
     <ProcessRenderer />
     <ContextMenuRenderer />
   </div>

@@ -30,18 +30,12 @@
 
 <div class="controls">
   {#if $app.helpArticle}
-    <button
-      class="help material-icons-round titlebar-control reset"
-      on:click={help}
-    >
+    <button class="help material-icons-round titlebar-control reset" on:click={help}>
       question_mark
     </button>
   {/if}
   {#if $app.controls.maximize && $app.state.snapping}
-    <button
-      class="unsnap material-icons-round titlebar-control reset"
-      on:click={unsnap}
-    >
+    <button class="unsnap material-icons-round titlebar-control reset" on:click={unsnap}>
       south_west
     </button>
   {/if}

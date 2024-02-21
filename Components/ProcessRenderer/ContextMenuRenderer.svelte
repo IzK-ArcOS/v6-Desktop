@@ -1,8 +1,5 @@
 <script lang="ts">
-  import {
-    assignContextMenuHooks,
-    composePosition,
-  } from "$state/Desktop/ts/context";
+  import { assignContextMenuHooks, composePosition } from "$state/Desktop/ts/context";
   import { contextData } from "$state/Desktop/ts/store";
   import { maxZIndex } from "$ts/stores/apps";
   import { UserDataStore } from "$ts/stores/user";

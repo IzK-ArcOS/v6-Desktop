@@ -26,7 +26,7 @@ export function DesktopStyle(): DesktopStyleStores {
 
     if (u != bgUrl) bgUrl = u;
 
-    return bgUrl
+    return bgUrl;
   }
 
   function getStyle(data: UserData) {

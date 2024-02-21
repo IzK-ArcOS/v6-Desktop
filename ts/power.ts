@@ -12,12 +12,12 @@ import { sleep } from "$ts/util";
 export async function logout() {
   Log("Desktop/ts/power", `Resetting data to default stores and logging out ${UserName.get()}...`);
 
-  GlobalDispatch.dispatch("desktop-hide")
+  GlobalDispatch.dispatch("desktop-hide");
 
   await sleep(400);
   await killAllApps(true);
 
-  appLibrary.set(new Map([]))
+  appLibrary.set(new Map([]));
 
   const services = getAllServices();
 
@@ -29,12 +29,12 @@ export async function logout() {
   UserDataStore.set(defaultUserData);
   localStorage.removeItem("arcos-remembered-token");
   UserCache.clear();
-  ProcessStack.processes.set(new Map([]))
+  ProcessStack.processes.set(new Map([]));
   PrimaryState.navigate("logoff");
 }
 
 export async function shutdown() {
-  GlobalDispatch.dispatch("desktop-hide")
+  GlobalDispatch.dispatch("desktop-hide");
 
   await sleep(400);
   await LogoffToken();
@@ -45,7 +45,7 @@ export async function shutdown() {
 }
 
 export async function restart() {
-  GlobalDispatch.dispatch("desktop-hide")
+  GlobalDispatch.dispatch("desktop-hide");
 
   await sleep(400);
   await LogoffToken();
