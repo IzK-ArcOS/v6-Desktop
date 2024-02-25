@@ -12,6 +12,7 @@
   import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
   import "./css/main.css";
   import { DesktopStyle } from "./ts/styles";
+  import { SafeMode, SafeModeStyle } from "./ts/store";
 
   let render = false;
   let show = false;
@@ -40,12 +41,15 @@
 
 {#if $UserDataStore && render}
   <div
-    class="desktop theme-{$theme} cursor-{$UserDataStore.sh.desktop.noCustomCursor ? '' : 'custom'}"
-    style={$style}
+    class="desktop theme-{$SafeMode ? 'dark' : $theme} cursor-{$UserDataStore.sh.desktop
+      .noCustomCursor
+      ? ''
+      : 'custom'}"
+    style={$SafeMode ? SafeModeStyle : $style}
     class:show
-    class:sharp={$UserDataStore.sh.desktop.sharp}
-    class:noani={!$UserDataStore.sh.anim}
-    class:noglass={$UserDataStore.sh.noGlass}
+    class:sharp={$SafeMode || $UserDataStore.sh.desktop.sharp}
+    class:noani={$SafeMode || !$UserDataStore.sh.anim}
+    class:noglass={$SafeMode || $UserDataStore.sh.noGlass}
   >
     <ProcessRenderer />
     <ContextMenuRenderer />
