@@ -33,7 +33,7 @@
           <span class="title-text">
             {$app.metadata.name}
             {#if ARCOS_MODE == "development"}
-              - {$app.metadata.version} - {$UserName} - {pid} [v{ArcOSVersion}-{ARCOS_MODE}]
+              {$app.metadata.version} [{pid}]
             {/if}
           </span>
         {/if}
