@@ -1,17 +1,17 @@
-import { Wallpapers } from "$ts/stores/wallpaper";
+import SafeModeBg from "$assets/bg/safemode.png";
 import { Store } from "$ts/writable";
 import { ContextMenuInstance } from "$types/app";
 
 export const SafeModeStyle = `
---accent: #FFFFFF !important;
---accent-transparent: #FFFFFF44 !important;
---accent-light: #FFFFFF!important;
---accent-lighter: #FFFFFF !important;
+--accent: #FFBB00 !important;
+--accent-transparent: #FFBB0044 !important;
+--accent-light: #FFBB00 !important;
+--accent-lighter: #FFBB00 !important;
 --accent-dark: #444 !important;
 --accent-darkest: #000 !important;
---accent-light-transparent: #FFFFFF77 !important;
+--accent-light-transparent: #FFBB0077 !important;
 --accent-light-invert: #000000 !important;
---wallpaper: url(${Wallpapers.img15});`;
+--wallpaper: url(${SafeModeBg});`;
 
 export const SafeMode = Store<boolean>(false);
 export const contextData = Store<ContextMenuInstance>();

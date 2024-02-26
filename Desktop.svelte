@@ -45,6 +45,7 @@
       .noCustomCursor
       ? ''
       : 'custom'}"
+    class:safemode={$SafeMode}
     style={$SafeMode ? SafeModeStyle : $style}
     class:show
     class:sharp={$SafeMode || $UserDataStore.sh.desktop.sharp}
