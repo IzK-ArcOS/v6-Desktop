@@ -31,6 +31,8 @@
     await sleep(200);
 
     show = true;
+
+    $UserDataStore.acc.v6 = true;
   });
 
   GlobalDispatch.subscribe("desktop-hide", () => {
