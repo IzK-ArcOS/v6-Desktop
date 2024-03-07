@@ -12,6 +12,7 @@
   export let showIcon = true;
   export let showTitle = true;
   export let center = false;
+  export let noCenter = false;
 
   $: app;
 </script>
@@ -21,7 +22,7 @@
   <div
     class="titlebar"
     class:left={$UserDataStore.sh.window.lefttb}
-    class:center={$UserDataStore.sh.window.centertb || center}
+    class:center={!noCenter && ($UserDataStore.sh.window.centertb || center)}
     data-contextmenu="titlebar"
   >
     <div class="title">
