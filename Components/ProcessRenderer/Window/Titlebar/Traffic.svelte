@@ -14,7 +14,7 @@
   }
 
   function max() {
-    $app.state.maximized = true;
+    $app.state.maximized = !$app.state.maximized;
   }
 </script>
 
