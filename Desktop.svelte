@@ -13,6 +13,9 @@
   import "./css/main.css";
   import { DesktopStyle } from "./ts/styles";
   import { SafeMode, SafeModeStyle } from "./ts/store";
+  import { alignDesktopIcons } from "$apps/Wallpaper/ts/icons";
+  import { sendNotification } from "$ts/notif";
+  import { GlowingLogo } from "$ts/images/branding";
 
   let render = false;
   let show = false;
@@ -32,7 +35,18 @@
 
     show = true;
 
-    $UserDataStore.acc.v6 = true;
+    if (!$UserDataStore.acc.v6) {
+      await alignDesktopIcons();
+
+      sendNotification({
+        title: "Welcome to ArcOS v6!",
+        message:
+          "Your ArcOS account has been updated to work with ArcOS v6. In order to accomplish this, we had to reset your desktop icons to work with the new apps.",
+        image: GlowingLogo,
+      });
+
+      $UserDataStore.acc.v6 = true;
+    }
   });
 
   GlobalDispatch.subscribe("desktop-hide", () => {
