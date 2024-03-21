@@ -1,6 +1,5 @@
 <script lang="ts">
   import { GetHelp } from "$ts/help";
-  import { HelpArticles } from "$ts/stores/articles";
   import { ProcessStack } from "$ts/stores/process";
   import { AppMutator } from "$types/app";
 

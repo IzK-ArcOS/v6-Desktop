@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { alignDesktopIcons } from "$apps/Wallpaper/ts/icons";
   import { preventAnchorRedirects } from "$ts/anchor";
   import { loadBuiltinApps } from "$ts/apps/builtins";
+  import { GlowingLogo } from "$ts/images/branding";
+  import { sendNotification } from "$ts/notif";
   import { GlobalDispatch } from "$ts/process/dispatch/global";
   import { StartCoreProcesses } from "$ts/process/startup";
   import { startInitialServices } from "$ts/service/interact";
@@ -11,11 +14,8 @@
   import ProcessRenderer from "./Components/ProcessRenderer.svelte";
   import ContextMenuRenderer from "./Components/ProcessRenderer/ContextMenuRenderer.svelte";
   import "./css/main.css";
-  import { DesktopStyle } from "./ts/styles";
   import { SafeMode, SafeModeStyle } from "./ts/store";
-  import { alignDesktopIcons } from "$apps/Wallpaper/ts/icons";
-  import { sendNotification } from "$ts/notif";
-  import { GlowingLogo } from "$ts/images/branding";
+  import { DesktopStyle } from "./ts/styles";
 
   let render = false;
   let show = false;

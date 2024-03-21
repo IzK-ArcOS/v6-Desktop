@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { ArcOSVersion } from "$ts/env";
   import { ARCOS_MODE } from "$ts/metadata";
-  import { UserDataStore, UserName } from "$ts/stores/user";
+  import { UserDataStore } from "$ts/stores/user";
   import { App } from "$types/app";
   import { ReadableStore } from "$types/writable";
   import AltMenu from "./Body/AltMenu.svelte";
