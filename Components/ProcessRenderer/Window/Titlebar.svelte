@@ -22,6 +22,7 @@
     class="titlebar"
     class:left={$UserDataStore.sh.window.lefttb}
     class:center={!noCenter && ($UserDataStore.sh.window.centertb || center)}
+    on:dblclick={() => ($app.state.maximized = !$app.state.maximized)}
     data-contextmenu="titlebar"
   >
     <div class="title">
