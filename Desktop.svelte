@@ -6,6 +6,7 @@
   import { sendNotification } from "$ts/notif";
   import { GlobalDispatch } from "$ts/process/dispatch/global";
   import { StartCoreProcesses } from "$ts/process/startup";
+  import { flushVirtualFilesystem } from "$ts/server/fs/virtual";
   import { startInitialServices } from "$ts/service/interact";
   import { ArcSoundBus } from "$ts/soundbus";
   import { UserDataStore } from "$ts/stores/user";
@@ -26,6 +27,7 @@
     await StartCoreProcesses();
     await startInitialServices();
     preventAnchorRedirects();
+    flushVirtualFilesystem();
 
     ArcSoundBus.playSound("arcos.system.logon");
 
