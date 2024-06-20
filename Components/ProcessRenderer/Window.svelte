@@ -85,7 +85,7 @@
       taskbar-bounds
       tb-{$UserDataStore.sh.taskbar.pos}
       {$app.state.snapState || ''}
-      shell-colored"
+      shell-colored {$app.className || ''}"
     class:minimized={$app.state.minimized}
     class:maximized={$app.state.maximized || $app.state.snapping}
     class:headless={$app.state.headless}
