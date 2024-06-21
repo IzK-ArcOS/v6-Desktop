@@ -27,7 +27,7 @@
     await StartCoreProcesses();
     await startInitialServices();
     preventAnchorRedirects();
-    flushVirtualFilesystem();
+    await flushVirtualFilesystem();
 
     ArcSoundBus.playSound("arcos.system.logon");
 
