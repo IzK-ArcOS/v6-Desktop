@@ -8,7 +8,6 @@
   import { StartCoreProcesses } from "$ts/process/startup";
   import { flushVirtualFilesystem } from "$ts/server/fs/virtual";
   import { startInitialServices } from "$ts/service/interact";
-  import { ArcSoundBus } from "$ts/soundbus";
   import { UserDataStore } from "$ts/stores/user";
   import { sleep } from "$ts/util";
   import { onMount } from "svelte";
@@ -17,6 +16,8 @@
   import "./css/main.css";
   import { SafeMode, SafeModeStyle } from "./ts/store";
   import { DesktopStyle } from "./ts/styles";
+  import { isLoaded } from "$ts/apps";
+  import { isDisabled } from "$ts/apps/disable/utils";
 
   let render = false;
   let show = false;
@@ -29,13 +30,13 @@
     preventAnchorRedirects();
     await flushVirtualFilesystem();
 
-    ArcSoundBus.playSound("arcos.system.logon");
-
     render = true;
 
     await sleep(200);
 
-    show = true;
+    if (!isLoaded("desktopWallpaper") || isDisabled("desktopWallpaper")) {
+      GlobalDispatch.dispatch("desktop-show");
+    }
 
     if (!$UserDataStore.acc.v6) {
       await alignDesktopIcons();
