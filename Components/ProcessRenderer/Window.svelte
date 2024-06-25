@@ -73,6 +73,18 @@
 
     window.style.zIndex = `${$maxZIndex}`;
   });
+
+  function handleDragStart() {
+    window.querySelectorAll("iframe").forEach((i) => {
+      i.style.pointerEvents = "none";
+    });
+  }
+
+  function handleDragEnd(e: CustomEvent<DragEventData>) {
+    window.querySelectorAll("iframe").forEach((i) => {
+      i.style.pointerEvents = "";
+    });
+  }
 </script>
 
 {#if $app && typeof pid == "number" && runtime && $UserDataStore && render}
@@ -103,6 +115,8 @@
     {style}
     on:mousedown={handleMouse}
     on:neodrag={drag}
+    on:neodrag:start={handleDragStart}
+    on:neodrag:end={handleDragEnd}
     use:draggable={{
       disabled: $app.state.maximized,
       handle: ".titlebar",
