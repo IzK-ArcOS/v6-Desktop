@@ -22,7 +22,7 @@
   });
 </script>
 
-<div class="offline-check visible">
+<div class="offline-check" class:visible={offline}>
   <div class="shade" />
   <img src={ErrorIcon} alt="" />
   <h1>Connection lost!</h1>
