@@ -18,6 +18,7 @@
   import { DesktopStyle } from "./ts/styles";
   import { isLoaded } from "$ts/apps";
   import { isDisabled } from "$ts/apps/disable/utils";
+  import OfflineCheck from "./Components/OfflineCheck.svelte";
 
   let render = false;
   let show = false;
@@ -73,5 +74,6 @@
   >
     <ProcessRenderer />
     <ContextMenuRenderer />
+    <OfflineCheck />
   </div>
 {/if}
