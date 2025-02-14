@@ -1,7 +1,9 @@
 <script lang="ts">
   import { alignDesktopIcons } from "$apps/Wallpaper/ts/icons";
   import { preventAnchorRedirects } from "$ts/anchor";
+  import { isLoaded } from "$ts/apps";
   import { loadBuiltinApps } from "$ts/apps/builtins";
+  import { isDisabled } from "$ts/apps/disable/utils";
   import { GlowingLogo } from "$ts/images/branding";
   import { sendNotification } from "$ts/notif";
   import { GlobalDispatch } from "$ts/process/dispatch/global";
@@ -16,9 +18,6 @@
   import "./css/main.css";
   import { SafeMode, SafeModeStyle } from "./ts/store";
   import { DesktopStyle } from "./ts/styles";
-  import { isLoaded } from "$ts/apps";
-  import { isDisabled } from "$ts/apps/disable/utils";
-  import OfflineCheck from "./Components/OfflineCheck.svelte";
 
   let render = false;
   let show = false;
@@ -74,6 +73,5 @@
   >
     <ProcessRenderer />
     <ContextMenuRenderer />
-    <OfflineCheck />
   </div>
 {/if}
